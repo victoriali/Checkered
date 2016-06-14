@@ -12,11 +12,14 @@ import UIKit
 class GameScene: SKScene {
     
     var level: Level!
+    let provider = TileAppearance()
     
     let TileWidthOuter: CGFloat = 75.0
     let TileHeightOuter: CGFloat = 75.0
     let TileWidthInner: CGFloat = 73.0
     let TileHeightInner: CGFloat = 73.0
+    
+    var tiles: Dictionary<NSIndexPath, TileView>
     
     let gameLayer = SKNode()
     let boardTilesLayer = SKNode()
@@ -53,7 +56,45 @@ class GameScene: SKScene {
                 boardTilesLayer.addChild(boardTile)
             }
         }
+    }
+    
+    func insertTile(position: (Int, Int), value: Int){
+        let (column, row) = position
+        let x = CGFloat(column)*(TileWidthInner)
+        let y = CGFloat(row)*(TileHeightInner)
+        let tile = TileView(position: CGPointMake(x ,y), tileWidthInner: TileWidthInner, value: value, delegate: provider)
         
+//                let tile = SKShapeNode()
+//        tile.path = CGPathCreateWithRoundedRect(CGRectMake(CGFloat(column)*TileWidthOuter,CGFloat(row)*TileHeightOuter-TileHeightOuter/2,TileWidthInner,TileHeightInner),4,4,nil)
+//        tile.fillColor = 
+        boardTilesLayer.addChild(tile)
+    }
+    
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //        for row in 0..<NumRows {
 //            for column in 0..<NumColumns {
 //                let boardTileNode = SKSpriteNode(imageNamed: "BoardTile")
@@ -62,10 +103,10 @@ class GameScene: SKScene {
 //                boardTilesLayer.addChild(boardTileNode)
 //            }
 //        }
-    }
-    func pointForColumn(column: Int, row: Int) -> CGPoint {
-        return CGPoint(
-            x: CGFloat(column)*TileWidthOuter + TileWidthOuter/2,
-            y: CGFloat(row)*TileHeightOuter + TileHeightOuter/2)
-    }
-}
+
+
+//    func pointForColumn(column: Int, row: Int) -> CGPoint {
+//        return CGPoint(
+//            x: CGFloat(column)*TileWidthOuter + TileWidthOuter/2,
+//            y: CGFloat(row)*TileHeightOuter + TileHeightOuter/2)
+//    }

@@ -9,38 +9,64 @@
 import Foundation
 import UIKit
 
-let NumColumns = 4
-let NumRows = 4
+var NumColumns = 4
+var NumRows = 4
+
+protocol LevelProtocol: class {
+    func insertTile(location: (Int, Int), value: Int)
+}
 
 class Level {
-    private var tiles = Array2D<Tile>(columns: NumColumns, rows: NumRows)
     
-    func tileAtColumn(column: Int, row: Int) -> Tile? {
-        assert(column >= 0 && column < NumColumns)
-        assert(row >= 0 && row < NumRows)
-        return tiles[column, row]
+    var gameboard: Array2D<TileObject>
+    unowned let delegate : LevelProtocol
+    
+    init(NumColumns NOC: Int, NumRows NOR: Int, delegate: LevelProtocol){
+        NumColumns = NOC
+        NumRows = NOR
+        self.delegate = delegate
+        gameboard = Array2D(NumColumns: NOC, NumRows: NOR, initialValue: .Empty)
     }
-//    
-//    func InsertTwoRandomTiles() -> Set<Tile> {
-//        return createInitialTiles()
-//    }
-//    
-//    private func createInitialTiles() -> Set<Tile> {
-//        var set = Set<Tile>()
-//        var tileType = TileType.random()
-//        
-//        for
-//        
-//        repeat {
-//            var column = Int(arc4random_uniform((NumColumns)) + 1
-//            var row = Int(arc4random_uniform((NumRows)) + 1
-//        } while tiles[column, row] == TileType(1) || tiles[column, row] == TileType(2)
-//        
-//        let tile = Tile(column: column, row: row, tileType: tileType)
-//        tiles[column, row] = tile
-//        
-//        set.insert(tile)
-//        
-//    }
     
+//------------------------------------------------------------------------------//
+    // List of empty spots
+    func emptySpots() -> [(Int, Int)]{
+        var emptyList: [(Int, Int)] = []
+        for i in 0..<NumColumns{
+            for j in 0..<NumRows{
+                if case .Empty = gameboard[i,j]{
+                    emptyList += [(i,j)]
+                }
+            }
+        }
+        print ("emptyList: \(emptyList)" )
+        return emptyList
+    }
+    
+    // Given empty- insert a tile
+    func insertTileRandomly(value: Int){
+        let openSpots = emptySpots()
+        if openSpots.isEmpty {
+            return
+        }
+        let index = Int(arc4random_uniform(UInt32(openSpots.count-1)))
+        let (i,j) = openSpots[index]
+        print ("i, j: \(i,j)" )
+        insertTile((i,j), value: value)
+    }
+    
+    func insertTile(position: (Int, Int), value: Int){
+        let (x, y) = position
+        if case .Empty = gameboard[x, y]{
+            gameboard[x, y] = TileObject.Tile(value)
+            delegate.insertTile(position, value: value)
+        }
+    }
 }
+
+
+
+
+
+
+

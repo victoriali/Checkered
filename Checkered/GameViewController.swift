@@ -9,9 +9,8 @@
 import UIKit
 import SpriteKit
 
-class GameViewController: UIViewController {
+class GameViewController: UIViewController{
     var scene: GameScene!
-    var board: GameBoard?
     var level: Level!
     
     override func prefersStatusBarHidden() -> Bool {
@@ -42,4 +41,5 @@ class GameViewController: UIViewController {
         // Present the scene.
         skView.presentScene(scene)
     }
+    
 }

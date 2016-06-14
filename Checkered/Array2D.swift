@@ -9,22 +9,34 @@
 import Foundation
 
 struct Array2D<T> {
-    let columns: Int
-    let rows: Int
-    private var array: Array<T?>
+    let NumColumns: Int
+    let NumRows: Int
+    private var array: [T]
     
-    init(columns: Int, rows: Int) {
-        self.columns = columns
-        self.rows = rows
-        array = Array<T?>(count: rows*columns, repeatedValue: nil)
+    init(NumColumns col: Int, NumRows row: Int, initialValue: T) {
+        NumColumns = col
+        NumRows = row
+        array = [T](count:row*col, repeatedValue: initialValue)
     }
     
-    subscript(column: Int, row: Int) -> T? {
+    subscript(column: Int, row: Int) -> T {
         get {
-            return array[row*columns + column]
+            assert(column >= 0 && column < NumColumns)
+            assert(row >= 0 && row < NumRows)
+            return array[row*NumColumns + column]
         }
         set {
-            array[row*columns + column] = newValue
+            assert(column >= 0 && column < NumColumns)
+            assert(row >= 0 && row < NumRows)
+            array[row*NumColumns + column] = newValue
+        }
+    }
+    
+    mutating func setAll(item: T){
+        for i in 0..<NumColumns{
+            for j in 0..<NumRows {
+                self[i,j] = item
+            }
         }
     }
 }
