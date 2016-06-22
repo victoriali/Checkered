@@ -13,6 +13,7 @@ class GameViewController: UIViewController{
     var scene: GameScene!
     var level: Level!
     
+    
     override func prefersStatusBarHidden() -> Bool {
         return true
     }
@@ -37,9 +38,74 @@ class GameViewController: UIViewController{
         scene.scaleMode = .AspectFill
         
         scene.setupBoard()
+        level = Level()
+        scene.level = level
         
         // Present the scene.
         skView.presentScene(scene)
+        beginGame()
+        
+        addRecognizers()
+        
+    }
+    
+    func addRecognizers() {
+        
+        let skView = view as! SKView
+        
+        var recognizer = UISwipeGestureRecognizer(target: self, action: #selector(GameViewController.handleSwipe(_:)))
+        
+        recognizer.direction = .Right
+        
+        skView.addGestureRecognizer(recognizer)
+        
+        recognizer = UISwipeGestureRecognizer(target: self, action: #selector(GameViewController.handleSwipe(_:)))
+        
+        recognizer.direction = .Left
+        
+        skView.addGestureRecognizer(recognizer)
+        
+        recognizer = UISwipeGestureRecognizer(target: self, action: #selector(GameViewController.handleSwipe(_:)))
+        
+        recognizer.direction = .Down
+        
+        skView.addGestureRecognizer(recognizer)
+        
+        recognizer = UISwipeGestureRecognizer(target: self, action: #selector(GameViewController.handleSwipe(_:)))
+        
+        recognizer.direction = .Up
+        
+        skView.addGestureRecognizer(recognizer)
+    }
+    
+    func handleSwipe(recognizer:UISwipeGestureRecognizer) {
+        print("swipe!")
+        print(recognizer.direction)
+        
+        switch recognizer.direction {
+        case UISwipeGestureRecognizerDirection.Left:
+            level.userMoved(.Left)
+        case UISwipeGestureRecognizerDirection.Right:
+            level.userMoved(.Right)
+        case UISwipeGestureRecognizerDirection.Up:
+            level.userMoved(.Up)
+        case UISwipeGestureRecognizerDirection.Down:
+            level.userMoved(.Down)
+            
+        default:
+            break
+        }
+        
+        scene.tilesMoved(level.displacements)
+        
+    }
+    
+    func beginGame(){
+        initialTiles()
+    }
+    func initialTiles(){
+        let newTiles = level.initialTiles()
+        scene.addTiles(newTiles)
     }
     
 }

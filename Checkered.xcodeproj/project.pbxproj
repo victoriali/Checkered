@@ -16,7 +16,6 @@
 		5FC7E0271D0CF80F0024BB68 /* Array2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC7E0261D0CF80F0024BB68 /* Array2D.swift */; };
 		5FC7E02D1D0D09770024BB68 /* Tile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC7E02C1D0D09770024BB68 /* Tile.swift */; };
 		5FC7E0311D0D30C30024BB68 /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC7E0301D0D30C30024BB68 /* Level.swift */; };
-		5FC7E0701D0FBBE00024BB68 /* TileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC7E06F1D0FBBE00024BB68 /* TileView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,7 +30,6 @@
 		5FC7E0261D0CF80F0024BB68 /* Array2D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Array2D.swift; sourceTree = "<group>"; };
 		5FC7E02C1D0D09770024BB68 /* Tile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Tile.swift; path = ../Tile.swift; sourceTree = "<group>"; };
 		5FC7E0301D0D30C30024BB68 /* Level.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
-		5FC7E06F1D0FBBE00024BB68 /* TileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,7 +95,6 @@
 			isa = PBXGroup;
 			children = (
 				5FC7E0141D0C74D10024BB68 /* GameScene.swift */,
-				5FC7E06F1D0FBBE00024BB68 /* TileView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -143,6 +140,7 @@
 				TargetAttributes = {
 					5FC7E00C1D0C74D10024BB68 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = UFS46TJ7E2;
 					};
 				};
 			};
@@ -183,7 +181,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				5FC7E0151D0C74D10024BB68 /* GameScene.swift in Sources */,
-				5FC7E0701D0FBBE00024BB68 /* TileView.swift in Sources */,
 				5FC7E0311D0D30C30024BB68 /* Level.swift in Sources */,
 				5FC7E0271D0CF80F0024BB68 /* Array2D.swift in Sources */,
 				5FC7E02D1D0D09770024BB68 /* Tile.swift in Sources */,
@@ -301,10 +298,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Checkered/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.victoriali.Checkered;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -312,10 +312,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Checkered/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.victoriali.Checkered;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
