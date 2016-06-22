@@ -113,7 +113,7 @@ class Level {
         for row in 0..<NumRows {
             for colMax in 1..<NumColumns {
                 for col in colMax.stride(through: 1, by: -1) {
-//                        print ("\(row), \(col), \(colMax)")
+
                     if let tile = tiles[col, row] {
 //                        print ("\(row), \(col), \(colMax), \(tile.tileType)")
                         if tiles[col-1, row] == nil {
@@ -129,10 +129,14 @@ class Level {
                                 displacements[index].toCol = col - 1
                                 displacements[index].toRow = row
                                 displacements[index].tileType = tile.tileType
-                                displacements[0].newTile = true
+//                                displacements[0].newTile = true
+                                print("if let")
+                                print(displacements)
                             } else {
-                                let displacement = TileDisplacement(fromCol: colMax, fromRow: row, toCol: col - 1, toRow: row, tileType: tile.tileType, disappear: false, newTile: false)
+                                let displacement = TileDisplacement(fromCol: colMax, fromRow: row, toCol: col - 1, toRow: row, tileType: tile.tileType, disappear: false, newTile: true)
                                 displacements.append(displacement)
+                                print("else")
+                                print(displacements)
                             }
                             
                             

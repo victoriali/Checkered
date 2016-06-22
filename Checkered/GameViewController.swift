@@ -85,6 +85,7 @@ class GameViewController: UIViewController{
         switch recognizer.direction {
         case UISwipeGestureRecognizerDirection.Left:
             level.userMoved(.Left)
+             scene.tilesMoved(level.displacements)
         case UISwipeGestureRecognizerDirection.Right:
             level.userMoved(.Right)
         case UISwipeGestureRecognizerDirection.Up:
@@ -96,7 +97,7 @@ class GameViewController: UIViewController{
             break
         }
         
-        scene.tilesMoved(level.displacements)
+       
         
     }
     

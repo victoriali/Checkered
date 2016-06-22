@@ -77,10 +77,6 @@ class GameScene: SKScene {
     func coordToCGPoint(column:Int, _ row:Int) -> CGPoint {
         return CGPoint(x:CGFloat(column)*TileWidthOuter, y:CGFloat(row)*TileHeightOuter)
     }
-    
-//    func cgPointToCGVector(x:CGPoint, _ y:CGPoint) -> CGVector {
-//        return CGVector(dx: x, dy: y)
-//    }
 
     
     func tilesMoved(displacements:[TileDisplacement]) {
