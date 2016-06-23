@@ -82,20 +82,20 @@ class Level {
         set.remove(tile)
         return set
     }
-//    
-//    func changeColor(column: Int, row: Int, tileType: TileType) -> Set<Tile>{
-//        let set = Set<Tile>()
-//        
-//        let tile = Tile(column: column, row: row, tileType: tileType)
-//        tiles[tile.column, tile.row] = tile
-//        
-//        if tiles[column, row]!.tileType == .Red {
-//            tiles[column, row]!.tileType = .Black
-//        } else if tiles[column, row]!.tileType == .Black{
-//            tiles[column, row]!.tileType = .Red
-//        }
-//        return set
-//    }
+    
+    func changeColor(column: Int, row: Int, tileType: TileType) -> Set<Tile>{
+        let set = Set<Tile>()
+        
+        let tile = Tile(column: column, row: row, tileType: tileType)
+        tiles[tile.column, tile.row] = tile
+        
+        if tiles[tile.column, tile.row]!.tileType == .Red {
+            tiles[tile.column, tile.row]!.tileType = .Black
+        } else if tiles[tile.column, tile.row]!.tileType == .Black{
+            tiles[tile.column, tile.row]!.tileType = .Red
+        }
+        return set
+    }
 
     
     func userMoved(direction:InputDirection) {
@@ -148,11 +148,11 @@ class Level {
 //
                             
                         } else if tiles[col-1, row]?.tileType == tiles[col, row]!.tileType{
-//                            if tiles[col-1, row]!.tileType == .Red {
-//                                tiles[col-1, row]!.tileType = .Black
-//                            } else if tiles[col-1, row]!.tileType == .Black{
-//                                tiles[col-1, row]!.tileType = .Red
-//                            }
+                            if tiles[col-1, row]!.tileType == .Red {
+                                tiles[col-1, row]!.tileType = .Black
+                            } else if tiles[col-1, row]!.tileType == .Black{
+                                tiles[col-1, row]!.tileType = .Red
+                            }
                             tiles[col, row] = nil
                             tile.column = col - 1
                             
@@ -165,7 +165,7 @@ class Level {
                                 print(displacements)
                                
                             } else {
-                                let displacement = TileDisplacement(fromCol: colMax, fromRow: row, toCol: col-1, toRow: row, tileType: tile.tileType, disappear: false, newTile: true)
+                                let displacement = TileDisplacement(fromCol: colMax, fromRow: row, toCol: col-1, toRow: row, tileType: tile.tileType, disappear: true, newTile: true)
                                 displacements.append(displacement)
                                 print("else merge")
                                 print(displacements)
