@@ -97,11 +97,12 @@ class GameScene: SKScene {
             if displacement.newTile == true{
                 let oneNewTile = level.insertOneTile()
                 addTiles(oneNewTile)
+                print("insert one tile is called")
             }
             if displacement.disappear == true{
                 let removeTile = level.removeTiles(displacement.toCol, row: displacement.toRow, tileType: displacement.tileType)
                 removeTiles(removeTile)
-//                let changeColor = level.changeColor(displacement.toCol-1, row: displacement.toRow, tileType: displacement.tileType)
+//                let changeColor = level.changeColor((displacement.toCol)-1, row: displacement.toRow, tileType: displacement.tileType)
 //                changeTiles(changeColor)
             }
         }
@@ -114,15 +115,13 @@ class GameScene: SKScene {
             tileSprite.removeFromParent()
         }
     }
-//    
+    
 //    func changeTiles(tiles: Set<Tile>){
 //        for tile in tiles {
 //            let tileSprite = SKShapeNode()
-//            
-//            
 //            let tileColor = tile.tileType == .Red ? SKColor.blackColor() : SKColor.redColor()
 //            tileSprite.fillColor = tileColor
-//            
+//            boardTilesLayer.addChild(tileSprite)
 //            tileSprites[tile.column, tile.row] = tileSprite
 //        }
 //    }

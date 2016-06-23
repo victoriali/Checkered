@@ -70,7 +70,8 @@ class Level {
         let tileType = TileType.random()
         
         let tile = Tile(column: col, row: row, tileType: tileType)
-        
+        print("random Tile")
+        print(tile)
         return tile
     }
    
@@ -81,7 +82,7 @@ class Level {
         set.remove(tile)
         return set
     }
-    
+//    
 //    func changeColor(column: Int, row: Int, tileType: TileType) -> Set<Tile>{
 //        let set = Set<Tile>()
 //        
@@ -129,16 +130,22 @@ class Level {
                                 displacements[index].toCol = col - 1
                                 displacements[index].toRow = row
                                 displacements[index].tileType = tile.tileType
-//                                displacements[0].newTile = true
                                 print("if let")
                                 print(displacements)
+                                
                             } else {
-                                let displacement = TileDisplacement(fromCol: colMax, fromRow: row, toCol: col - 1, toRow: row, tileType: tile.tileType, disappear: false, newTile: true)
+                                
+                                var displacement = TileDisplacement(fromCol: colMax, fromRow: row, toCol: col - 1, toRow: row, tileType: tile.tileType, disappear: false, newTile: true)
+                                
+                                if displacements.count != 0 && displacements[0].newTile == true {
+                                    displacement.newTile = false
+                                }
+                                
                                 displacements.append(displacement)
                                 print("else")
                                 print(displacements)
                             }
-                            
+//
                             
                         } else if tiles[col-1, row]?.tileType == tiles[col, row]!.tileType{
 //                            if tiles[col-1, row]!.tileType == .Red {
@@ -150,14 +157,18 @@ class Level {
                             tile.column = col - 1
                             
                             if let index = displacements.indexOf({ $0.fromCol == colMax && $0.fromRow == row }) {
+                                displacements[index].disappear = true
                                 displacements[index].toCol = col - 1
                                 displacements[index].toRow = row
                                 displacements[index].tileType = tile.tileType
-                                displacements[index].disappear = true
-                                displacements[0].newTile = true
+                                print("if let merge")
+                                print(displacements)
+                               
                             } else {
-                                let displacement = TileDisplacement(fromCol: colMax, fromRow: row, toCol: col - 1, toRow: row, tileType: tile.tileType, disappear: false, newTile: true)
+                                let displacement = TileDisplacement(fromCol: colMax, fromRow: row, toCol: col-1, toRow: row, tileType: tile.tileType, disappear: false, newTile: true)
                                 displacements.append(displacement)
+                                print("else merge")
+                                print(displacements)
                             }
                             
                         }
