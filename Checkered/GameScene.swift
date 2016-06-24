@@ -102,7 +102,8 @@ class GameScene: SKScene {
             if displacement.disappear == true{
                 let removeTile = level.removeTiles(displacement.toCol, row: displacement.toRow, tileType: displacement.tileType)
                 removeTiles(removeTile)
-//                let changeColor = level.changeColor((displacement.toCol)-1, row: displacement.toRow, tileType: displacement.tileType)
+                
+//                let changeColor = level.changeColor(displacement.toCol, row: displacement.toRow, tileType: displacement.tileType)
 //                changeTiles(changeColor)
             }
         }

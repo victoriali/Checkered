@@ -83,19 +83,19 @@ class Level {
         return set
     }
     
-    func changeColor(column: Int, row: Int, tileType: TileType) -> Set<Tile>{
-        let set = Set<Tile>()
-        
-        let tile = Tile(column: column, row: row, tileType: tileType)
-        tiles[tile.column, tile.row] = tile
-        
-        if tiles[tile.column, tile.row]!.tileType == .Red {
-            tiles[tile.column, tile.row]!.tileType = .Black
-        } else if tiles[tile.column, tile.row]!.tileType == .Black{
-            tiles[tile.column, tile.row]!.tileType = .Red
-        }
-        return set
-    }
+//    func changeColor(column: Int, row: Int, tileType: TileType) -> Set<Tile>{
+//        let set = Set<Tile>()
+//        
+//        let tile = Tile(column: column, row: row, tileType: tileType)
+//        tiles[tile.column, tile.row] = tile
+//        
+//        if tiles[tile.column, tile.row]!.tileType == .Red {
+//            tiles[tile.column, tile.row]!.tileType = .Black
+//        } else if tiles[tile.column, tile.row]!.tileType == .Black{
+//            tiles[tile.column, tile.row]!.tileType = .Red
+//        }
+//        return set
+//    }
 
     
     func userMoved(direction:InputDirection) {
@@ -116,7 +116,8 @@ class Level {
                 for col in colMax.stride(through: 1, by: -1) {
 
                     if let tile = tiles[col, row] {
-//                        print ("\(row), \(col), \(colMax), \(tile.tileType)")
+                        print("jj")
+                        print ("\(row), \(col), \(colMax), \(tile.tileType)")
                         if tiles[col-1, row] == nil {
                             tiles[col-1, row] = tile
                             tiles[col, row] = nil
@@ -172,6 +173,7 @@ class Level {
                             }
                             
                         }
+                        print ("\(col), \(row), \(colMax), \(tile.tileType)")
                     }
                 }
             }
