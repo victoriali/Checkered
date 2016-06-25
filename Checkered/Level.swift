@@ -11,6 +11,7 @@ import UIKit
 
 var NumColumns = 4
 var NumRows = 4
+var set = Set<Tile>()
 
 enum InputDirection {
     case Left
@@ -21,6 +22,7 @@ enum InputDirection {
 
 class Level {
     private var tiles = Array2D<Tile>(columns: NumColumns, rows: NumRows)
+//    private var theTileSet = Array2D<TheTileSet>(columns: NumColumns, rows: NumRows)
     
     var displacements:[TileDisplacement] = []
     
@@ -35,7 +37,7 @@ class Level {
     }
     
     private func createInitialTiles() -> Set<Tile>{
-        var set = Set<Tile>()
+//        var set = Set<Tile>()
         
         let tile1 = createNewTile()
         tiles[tile1.column, tile1.row] = tile1
@@ -49,7 +51,7 @@ class Level {
     }
     
     func insertOneTile() -> Set<Tile>{
-        var set = Set<Tile>()
+//        var set = Set<Tile>()
         
         let tile3 = createNewTile()
         tiles[tile3.column, tile3.row] = tile3
@@ -72,16 +74,27 @@ class Level {
         let tile = Tile(column: col, row: row, tileType: tileType)
         print("random Tile")
         print(tile)
+        
         return tile
     }
    
     func removeTiles(column: Int, row: Int, tileType: TileType) -> Set<Tile>{
-        var set = Set<Tile>()
+//        var set = Set<Tile>()
         let tile = Tile(column: column, row: row, tileType: tileType)
         tiles[tile.column, tile.row] = tile
         set.remove(tile)
         return set
     }
+    
+//    func updateTileSet(column: Int, row: Int, tileType: TileType) -> Set<TheTileSet>{
+//        var set = Set<TheTileSet>()
+//        let tile = TheTileSet(column: column, row: row, tileType: tileType)
+//        if theTileSet[tile.column, tile.row] == nil {
+//            theTileSet[tile.column, tile.row] = tile
+//            set.insert(tile)
+//        } else if tile.column ==
+//        return set
+//    }
     
 //    func changeColor(column: Int, row: Int, tileType: TileType) -> Set<Tile>{
 //        let set = Set<Tile>()
@@ -116,8 +129,7 @@ class Level {
                 for col in colMax.stride(through: 1, by: -1) {
 
                     if let tile = tiles[col, row] {
-                        print("jj")
-                        print ("\(row), \(col), \(colMax), \(tile.tileType)")
+                        
                         if tiles[col-1, row] == nil {
                             tiles[col-1, row] = tile
                             tiles[col, row] = nil
@@ -131,20 +143,22 @@ class Level {
                                 displacements[index].toCol = col - 1
                                 displacements[index].toRow = row
                                 displacements[index].tileType = tile.tileType
-                                print("if let")
-                                print(displacements)
+                                
+//                                print("if let")
+//                                print(displacements)
                                 
                             } else {
                                 
-                                var displacement = TileDisplacement(fromCol: colMax, fromRow: row, toCol: col - 1, toRow: row, tileType: tile.tileType, disappear: false, newTile: true)
+                                let displacement = TileDisplacement(fromCol: colMax, fromRow: row, toCol: col - 1, toRow: row, tileType: tile.tileType, disappear: false, newTile: true)
                                 
-                                if displacements.count != 0 && displacements[0].newTile == true {
-                                    displacement.newTile = false
-                                }
+//                                if displacements.count != 0 && displacements[0].newTile == true {
+//                                    displacement.newTile = false
+//                                }
                                 
                                 displacements.append(displacement)
-                                print("else")
-                                print(displacements)
+                                
+//                                print("else")
+//                                print(displacements)
                             }
 //
                             
@@ -154,22 +168,24 @@ class Level {
                             } else if tiles[col-1, row]!.tileType == .Black{
                                 tiles[col-1, row]!.tileType = .Red
                             }
+                            
                             tiles[col, row] = nil
                             tile.column = col - 1
+                            tiles[col, row] = nil
                             
                             if let index = displacements.indexOf({ $0.fromCol == colMax && $0.fromRow == row }) {
                                 displacements[index].disappear = true
                                 displacements[index].toCol = col - 1
                                 displacements[index].toRow = row
                                 displacements[index].tileType = tile.tileType
-                                print("if let merge")
-                                print(displacements)
+//                                print("if let merge")
+//                                print(displacements)
                                
                             } else {
                                 let displacement = TileDisplacement(fromCol: colMax, fromRow: row, toCol: col-1, toRow: row, tileType: tile.tileType, disappear: true, newTile: true)
                                 displacements.append(displacement)
-                                print("else merge")
-                                print(displacements)
+//                                print("else merge")
+//                                print(displacements)
                             }
                             
                         }
@@ -179,7 +195,15 @@ class Level {
             }
         }
         
+        if displacements.count > 1 {
+            var index = 0
+            while index <= displacements.count - 2 {
+                displacements[index].newTile = false
+                index += 1
+            }
+        }
         self.displacements = displacements
+        print(displacements)
         print("done")
     }
     

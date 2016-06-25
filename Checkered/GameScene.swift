@@ -70,8 +70,11 @@ class GameScene: SKScene {
             tileSprite.fillColor = tileColor
             boardTilesLayer.addChild(tileSprite)
             tileSprites[tile.column, tile.row] = tileSprite
-            
         }
+        
+        print("tile set")
+        print(tiles)
+        
     }
     
     func coordToCGPoint(column:Int, _ row:Int) -> CGPoint {
