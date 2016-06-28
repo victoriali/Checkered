@@ -14,6 +14,7 @@ class GameScene: SKScene {
 
     
     var level: Level!
+    var set = Set<Tile>()
     
     let TileWidthOuter: CGFloat = 75.0
     let TileHeightOuter: CGFloat = 75.0
@@ -72,7 +73,7 @@ class GameScene: SKScene {
             tileSprites[tile.column, tile.row] = tileSprite
         }
         
-        print("tile set")
+        print("tile set addTiles")
         print(tiles)
         
     }
@@ -85,6 +86,9 @@ class GameScene: SKScene {
     func tilesMoved(displacements:[TileDisplacement]) {
         for displacement in displacements {
             let sprite = tileSprites[displacement.fromCol, displacement.fromRow]
+            let removeSprite = tileSprites[displacement.toCol, displacement.toRow]
+            print (removeSprite)
+
 
             print("original position CG Point")
             print(coordToCGPoint(displacement.fromCol, displacement.fromRow))
@@ -97,37 +101,44 @@ class GameScene: SKScene {
 //            let moveAction = SKAction.moveTo(coordToCGPoint(displacement.toCol, displacement.toRow), duration: 0.5)
             sprite!.runAction(moveAction)
             
+            if displacement.disappear == true{
+                let actionRemove = SKAction.removeFromParent()
+                //                print("tile set removeTiles")
+                //                print(set)
+                //                print("BEFORE - what will be removed")
+                //                print("to col: \(displacement.toCol), to row: \(displacement.toRow), tileType: \(displacement.tileType)")
+                //                if displacement.tileType == .Red {
+                //                    level.removeTiles(displacement.toCol, row: displacement.toRow, tileType: .Black)
+                //                    print("black")
+                //                }else if displacement.tileType == .Black{
+                //                    level.removeTiles(displacement.toCol, row: displacement.toRow, tileType: .Red)
+                //                    print("red")
+                //                }
+                //                print("AFTER - what will be removed")
+                //                print("to col: \(displacement.toCol), to row: \(displacement.toRow), tileType: \(displacement.tileType)")
+                removeSprite!.runAction(actionRemove)
+                //                let removeTile = level.removeTiles(displacement.toCol, row: displacement.toRow, tileType: displacement.tileType)
+                //                removeTiles(removeTile)
+            }
+            
             if displacement.newTile == true{
                 let oneNewTile = level.insertOneTile()
                 addTiles(oneNewTile)
                 print("insert one tile is called")
             }
-            if displacement.disappear == true{
-                let removeTile = level.removeTiles(displacement.toCol, row: displacement.toRow, tileType: displacement.tileType)
-                removeTiles(removeTile)
-                
-//                let changeColor = level.changeColor(displacement.toCol, row: displacement.toRow, tileType: displacement.tileType)
-//                changeTiles(changeColor)
-            }
         }
+//        print ("**************************")
+//        print (tileSprites)
     }
     
-    func removeTiles(tiles: Set<Tile>){
-        for tile in tiles {
-            let tileSprite = SKShapeNode()
-            tileSprites[tile.column, tile.row] = tileSprite
-            tileSprite.removeFromParent()
-        }
-    }
-    
-//    func changeTiles(tiles: Set<Tile>){
+//    func removeTiles(tiles: Set<Tile>){
 //        for tile in tiles {
 //            let tileSprite = SKShapeNode()
-//            let tileColor = tile.tileType == .Red ? SKColor.blackColor() : SKColor.redColor()
-//            tileSprite.fillColor = tileColor
-//            boardTilesLayer.addChild(tileSprite)
 //            tileSprites[tile.column, tile.row] = tileSprite
+//            tileSprite.removeFromParent()
 //        }
+//        print("tile set removeTiles")
+//        print(tiles)
 //    }
     
 }

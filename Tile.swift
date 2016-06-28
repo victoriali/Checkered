@@ -54,11 +54,12 @@ class Tile: CustomStringConvertible, Hashable {
     }
     
     var hashValue: Int {
-        return row*10 + column
+        return row*10 + column + ((tileType == .Black) ? 1000 : 0)
     }
     
 }
 
-func ==(lhs: Tile, rhs: Tile) -> Bool {
+func == (lhs: Tile, rhs: Tile) -> Bool {
     return lhs.column == rhs.column && lhs.row == rhs.row
+//    return lhs.column == rhs.column && lhs.row == rhs.row && lhs.tileType == rhs.tileType && lhs.sprite == rhs.sprite && lhs.hashValue == rhs.hashValue && lhs.description == rhs.description
 }
