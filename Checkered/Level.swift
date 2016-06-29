@@ -10,7 +10,10 @@ import Foundation
 import UIKit
 
 var NumColumns = 4
+var NumColumnsMinusOne = NumColumns - 1
 var NumRows = 4
+var NumRowsMinusOne = NumRows - 1
+
 var set = Set<Tile>()
 
 enum InputDirection {
@@ -50,9 +53,18 @@ class Level {
     func insertOneTile() -> Set<Tile>{
         let tile3 = createNewTile()
         tiles[tile3.column, tile3.row] = tile3
-        set.insert(tile3)
+//        set.insert(tile3)
+//        return set
         
-        return set
+        var setFromModel = Set<Tile>()
+        for x in 0...3 {
+            for y in 0...3 {
+                if let individualTile = tiles[x, y]{
+                    setFromModel.insert(individualTile)
+                }
+            }
+        }
+        return setFromModel
     }
     
     func createNewTile() -> Tile {
@@ -66,7 +78,7 @@ class Level {
         
         let tileType = TileType.random()
         
-        let tile = Tile(column: col, row: row, tileType: tileType)
+        let tile = Tile(column: col, row: row, tileType: tileType, hasMerged: false)
         print("random Tile")
         print(tile)
         
@@ -74,16 +86,6 @@ class Level {
     }
    
     func removeTiles(column: Int, row: Int, tileType: TileType) -> Set<Tile>{
-//        print("what is level- removeTiles")
-//        print("******************************************")
-//        print(set)
-//        print("******************************************")
-//        let subtractedBy: Set<Tile> = [Tile(column: column, row: row, tileType: tileType)]
-//        print(subtractedBy)
-//        print("******************************************")
-//        set = set.subtract(subtractedBy)
-//        print(set)
-//        print("******************************************")
         for tile in set {
             if tile.hashValue == (row*10 + column + ((tileType == .Black) ? 1000 : 0)) {
                 print(tile.hashValue)
@@ -91,24 +93,13 @@ class Level {
                 print("******************************************")
                 print(set)
                 print("******************************************")
-//                print(set.remove(tile))
-                print(set.removeAll())
+                print(set.remove(tile))
                 print("******************************************")
                 print(set)
                 print("******************************************")
                 break
             }
         }
-//        let tile = Tile(column: column, row: row, tileType: tileType)
-//        print(tile)
-//        tiles[tile.column, tile.row] = tile
-//        print("set BEFORE removed")
-//        print(set)
-//        print("*************")
-//        print(set.remove())
-//        print("*************")
-//        print("set AFTER removed")
-//        print (set)
         return set
     }
     
@@ -116,6 +107,10 @@ class Level {
         switch direction {
         case .Left:
             moveLeft()
+        case .Right:
+            moveRight()
+        case .Down:
+            moveDown()
         default:
             break
         }
@@ -126,10 +121,9 @@ class Level {
         var displacements:[TileDisplacement] = []
         
         for row in 0..<NumRows {
-            var hasMerged = false
             for colMax in 1..<NumColumns {
                 for col in colMax.stride(through: 1, by: -1) {
-
+                    print ("\(col), \(row), \(colMax)")
                     if let tile = tiles[col, row] {
                         
                         if tiles[col-1, row] == nil {
@@ -160,7 +154,7 @@ class Level {
                                 print(displacements)
                             }
                             
-                        } else if tiles[col-1, row]?.tileType == tiles[col, row]!.tileType && hasMerged == false{
+                        } else if tiles[col-1, row]?.tileType == tiles[col, row]!.tileType && tiles[col-1, row]?.hasMerged == false && tiles[col, row]?.hasMerged == false{
                             print ("Second session")
                             tiles[col-1, row] = nil
                             tiles[col, row] = nil
@@ -171,6 +165,8 @@ class Level {
                             } else if tiles[col-1, row]!.tileType == .Black{
                                 tiles[col-1, row]!.tileType = .Red
                             }
+                            
+                            tiles[col-1, row]!.hasMerged = true
                             tile.column = col - 1
                             
                             
@@ -188,7 +184,6 @@ class Level {
                                 print("else merge")
                                 print(displacements)
                             }
-                            hasMerged = true
                         }
                         print ("\(col), \(row), \(colMax), \(tile.tileType)")
                         print (tiles)
@@ -219,6 +214,226 @@ class Level {
         self.displacements = displacements
         print(displacements)
         print("done")
+        
+        for col in 0..<NumColumns {
+            for row in 0..<NumRows {
+                if let tile = tiles[col, row]{
+                    tile.hasMerged = false
+                }
+            }
+        }
+    }
+    
+    func moveRight() {
+        
+        var displacements:[TileDisplacement] = []
+        
+        for row in 0..<NumRows {
+            for colMax in 1..<NumColumns {
+                for col in (NumColumns - colMax - 1)..<(NumColumns - 1){
+                    print ("\(col), \(row), \(colMax)")
+                    
+                    if let tile = tiles[col, row] {
+                        
+                        if tiles[col+1, row] == nil {
+                            print ("First session")
+                            tiles[col+1, row] = tile
+                            tiles[col, row] = nil
+                            tile.column = col + 1
+                            
+                        
+                        if let index = displacements.indexOf({ $0.fromCol == (NumColumnsMinusOne-colMax) && $0.fromRow == row }) {
+                            displacements[index].toCol = col + 1
+                            displacements[index].toRow = row
+                            displacements[index].tileType = tile.tileType
+                            
+                            print("if let")
+                            print(displacements)
+                            
+                        } else {
+                            
+                            let displacement = TileDisplacement(fromCol: (NumColumnsMinusOne-colMax), fromRow: row, toCol: col + 1, toRow: row, tileType: tile.tileType, disappear: false, newTile: true)
+                            
+                            displacements.append(displacement)
+                            
+                            print("else")
+                            print(displacements)
+                        }
+                            
+                        } else if tiles[col+1, row]?.tileType == tiles[col, row]!.tileType && tiles[col+1, row]?.hasMerged == false && tiles[col, row]?.hasMerged == false{
+                            print ("Second session")
+                            tiles[col+1, row] = nil
+                            tiles[col, row] = nil
+                            tiles[col+1, row] = tile
+                            
+                            if tiles[col+1, row]!.tileType == .Red {
+                                tiles[col+1, row]!.tileType = .Black
+                            } else if tiles[col+1, row]!.tileType == .Black{
+                                tiles[col+1, row]!.tileType = .Red
+                            }
+                            
+                            tiles[col+1, row]!.hasMerged = true
+                            tile.column = col + 1
+                            
+                            
+                            if let index = displacements.indexOf({ $0.fromCol == (NumColumnsMinusOne-colMax) && $0.fromRow == row }) {
+                                displacements[index].disappear = true
+                                displacements[index].toCol = col + 1
+                                displacements[index].toRow = row
+                                displacements[index].tileType = tile.tileType
+                                print("if let merge")
+                                print(displacements)
+                                
+                            } else {
+                                let displacement = TileDisplacement(fromCol: (NumColumnsMinusOne-colMax), fromRow: row, toCol: col+1, toRow: row, tileType: tile.tileType, disappear: true, newTile: true)
+                                displacements.append(displacement)
+                                print("else merge")
+                                print(displacements)
+                            }
+                        }
+                        print ("\(col), \(row), \(colMax), \(tile.tileType)")
+                        print (tiles)
+                    }
+                }
+            }
+        }
+        
+        
+        if displacements.count > 1 {
+            var index = 0
+            while index <= displacements.count - 2 {
+                displacements[index].newTile = false
+                index += 1
+            }
+        }
+        
+        for var displacement in displacements {
+            if displacement.disappear == true {
+                if displacement.tileType == .Red {
+                    displacement.tileType = .Black
+                } else if displacement.tileType == .Black {
+                    displacement.tileType = .Red
+                }
+            }
+        }
+        
+        self.displacements = displacements
+        print(displacements)
+        print("done")
+        
+        for col in 0..<NumColumns {
+            for row in 0..<NumRows {
+                if let tile = tiles[col, row]{
+                    tile.hasMerged = false
+                }
+            }
+        }
+    }
+    
+    func moveDown() {
+        
+        var displacements:[TileDisplacement] = []
+        
+        for col in 0..<NumColumns {
+            for rowMax in 1..<NumRows {
+                for row in rowMax.stride(through: 1, by: -1){
+                    print ("\(col), \(row), \(colMax)")
+                    
+                    if let tile = tiles[col, row] {
+                        
+                        if tiles[col, row-1] == nil {
+                            print ("First session")
+                            tiles[col, row-1] = tile
+                            tiles[col, row] = nil
+                            tile.row = row - 1
+                            
+                            
+                            if let index = displacements.indexOf({ $0.fromCol == col && $0.fromRow == rowMax }) {
+                                displacements[index].toCol = col
+                                displacements[index].toRow = row - 1
+                                displacements[index].tileType = tile.tileType
+                                
+                                print("if let")
+                                print(displacements)
+                                
+                            } else {
+                                
+                                let displacement = TileDisplacement(fromCol: col, fromRow: rowMax, toCol: col, toRow: row - 1, tileType: tile.tileType, disappear: false, newTile: true)
+                                
+                                displacements.append(displacement)
+                                
+                                print("else")
+                                print(displacements)
+                            }
+                            
+                        } else if tiles[col, row-1]?.tileType == tiles[col, row]!.tileType && tiles[col, row-1]?.hasMerged == false && tiles[col, row]?.hasMerged == false{
+                            print ("Second session")
+                            tiles[col, row-1] = nil
+                            tiles[col, row] = nil
+                            tiles[col, row-1] = tile
+                            
+                            if tiles[col, row-1]!.tileType == .Red {
+                                tiles[col, row-1]!.tileType = .Black
+                            } else if tiles[col, row-1]!.tileType == .Black{
+                                tiles[col, row-1]!.tileType = .Red
+                            }
+                            
+                            tiles[col, row-1]!.hasMerged = true
+                            tile.row = row - 1
+                            
+                            
+                            if let index = displacements.indexOf({ $0.fromCol == col && $0.fromRow == rowMax }) {
+                                displacements[index].disappear = true
+                                displacements[index].toCol = col
+                                displacements[index].toRow = row - 1
+                                displacements[index].tileType = tile.tileType
+                                print("if let merge")
+                                print(displacements)
+                                
+                            } else {
+                                let displacement = TileDisplacement(fromCol: col, fromRow: rowMax, toCol: col, toRow: row-1, tileType: tile.tileType, disappear: true, newTile: true)
+                                displacements.append(displacement)
+                                print("else merge")
+                                print(displacements)
+                            }
+                        }
+                        print ("\(col), \(row), \(colMax), \(tile.tileType)")
+                        print (tiles)
+                    }
+                }
+            }
+        }
+        
+        
+        if displacements.count > 1 {
+            var index = 0
+            while index <= displacements.count - 2 {
+                displacements[index].newTile = false
+                index += 1
+            }
+        }
+        
+        for var displacement in displacements {
+            if displacement.disappear == true {
+                if displacement.tileType == .Red {
+                    displacement.tileType = .Black
+                } else if displacement.tileType == .Black {
+                    displacement.tileType = .Red
+                }
+            }
+        }
+        
+        self.displacements = displacements
+        print(displacements)
+        print("done")
+        
+        for col in 0..<NumColumns {
+            for row in 0..<NumRows {
+                if let tile = tiles[col, row]{
+                    tile.hasMerged = false
+                }
+            }
+        }
     }
     
 }

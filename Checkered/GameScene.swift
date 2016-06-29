@@ -61,9 +61,12 @@ class GameScene: SKScene {
     }
     
     func addTiles(tiles: Set<Tile>){
+        boardTilesLayer.removeAllChildren()
+        setupBoard()
         for tile in tiles {
+//            print("************************************************")
+//            print(tile)
             let tileSprite = SKShapeNode()
-            
             
             tileSprite.path = CGPathCreateWithRoundedRect(CGRect(origin: coordToCGPoint(tile.column, tile.row), size: CGSize(width: TileWidthInner, height: TileHeightInner)),4,4,nil)
             let tileColor = tile.tileType == .Red ? SKColor.redColor() : SKColor.blackColor()
@@ -72,10 +75,9 @@ class GameScene: SKScene {
             boardTilesLayer.addChild(tileSprite)
             tileSprites[tile.column, tile.row] = tileSprite
         }
-        
-        print("tile set addTiles")
-        print(tiles)
-        
+//        print("tile set addTiles")
+//        print(tiles)
+//        
     }
     
     func coordToCGPoint(column:Int, _ row:Int) -> CGPoint {
@@ -86,49 +88,63 @@ class GameScene: SKScene {
     func tilesMoved(displacements:[TileDisplacement]) {
         for displacement in displacements {
             let sprite = tileSprites[displacement.fromCol, displacement.fromRow]
-            let removeSprite = tileSprites[displacement.toCol, displacement.toRow]
-            print (removeSprite)
-
-
-            print("original position CG Point")
-            print(coordToCGPoint(displacement.fromCol, displacement.fromRow))
-            print("displacement CG Point")
-            print(coordToCGPoint(displacement.toCol, displacement.toRow))
-            print("Move By CG Point")
-            print(coordToCGPoint(displacement.toCol-displacement.fromCol, displacement.toRow-displacement.fromRow))
-            
-            let moveAction = SKAction.moveByX(coordToCGPoint(displacement.toCol, displacement.toRow).x - coordToCGPoint(displacement.fromCol, displacement.fromRow).x, y: coordToCGPoint(displacement.toCol, displacement.toRow).y - coordToCGPoint(displacement.fromCol, displacement.fromRow).y, duration: 0.1)
+//            var removeSprite = tileSprites[displacement.toCol, displacement.toRow]
+//            print (removeSprite)
+//
+//            print("original position CG Point")
+//            print(coordToCGPoint(displacement.fromCol, displacement.fromRow))
+//            print("displacement CG Point")
+//            print(coordToCGPoint(displacement.toCol, displacement.toRow))
+//            print("Move By CG Point")
+//            print(coordToCGPoint(displacement.toCol-displacement.fromCol, displacement.toRow-displacement.fromRow))
+//            
+//            if displacement.disappear == true && removeSprite != nil{
+//                let actionRemove = SKAction.removeFromParent()
+//                    print("tile set removeTiles")
+//                    print(set)
+//                    print("BEFORE - what will be removed")
+//                    print("to col: \(displacement.toCol), to row: \(displacement.toRow), tileType: \(displacement.tileType)")
+//                    if displacement.tileType == .Red {
+//                        level.removeTiles(displacement.toCol, row: displacement.toRow, tileType: .Black)
+//                        print("black")
+//                    }else if displacement.tileType == .Black{
+//                        level.removeTiles(displacement.toCol, row: displacement.toRow, tileType: .Red)
+//                        print("red")
+//                    }
+//                    print("AFTER - what will be removed")
+//                    print("to col: \(displacement.toCol), to row: \(displacement.toRow), tileType: \(displacement.tileType)")
+//                    removeSprite!.runAction(actionRemove)
+//                    print ("******************** BEFORE ********************")
+//                    print (removeSprite)
+//                    removeSprite = nil
+//                    print ("********************  AFTER ********************")
+//                    print (removeSprite)
+//                //                let removeTile = level.removeTiles(displacement.toCol, row: displacement.toRow, tileType: displacement.tileType)
+//                //                removeTiles(removeTile)
+//            }
+//
+            let moveActionX = SKAction.moveByX(coordToCGPoint(displacement.toCol, displacement.toRow).x - coordToCGPoint(displacement.fromCol, displacement.fromRow).x, y: coordToCGPoint(displacement.toCol, displacement.toRow).y - coordToCGPoint(displacement.fromCol, displacement.fromRow).y, duration: 5)
+            let moveActionY = SKAction.moveByY(coordToCGPoint(displacement.toCol, displacement.toRow).x - coordToCGPoint(displacement.fromCol, displacement.fromRow).x, y: coordToCGPoint(displacement.toCol, displacement.toRow).y - coordToCGPoint(displacement.fromCol, displacement.fromRow).y, duration: 5)
 //            let moveAction = SKAction.moveTo(coordToCGPoint(displacement.toCol, displacement.toRow), duration: 0.5)
-            sprite!.runAction(moveAction)
             
-            if displacement.disappear == true{
-                let actionRemove = SKAction.removeFromParent()
-                //                print("tile set removeTiles")
-                //                print(set)
-                //                print("BEFORE - what will be removed")
-                //                print("to col: \(displacement.toCol), to row: \(displacement.toRow), tileType: \(displacement.tileType)")
-                //                if displacement.tileType == .Red {
-                //                    level.removeTiles(displacement.toCol, row: displacement.toRow, tileType: .Black)
-                //                    print("black")
-                //                }else if displacement.tileType == .Black{
-                //                    level.removeTiles(displacement.toCol, row: displacement.toRow, tileType: .Red)
-                //                    print("red")
-                //                }
-                //                print("AFTER - what will be removed")
-                //                print("to col: \(displacement.toCol), to row: \(displacement.toRow), tileType: \(displacement.tileType)")
-                removeSprite!.runAction(actionRemove)
-                //                let removeTile = level.removeTiles(displacement.toCol, row: displacement.toRow, tileType: displacement.tileType)
-                //                removeTiles(removeTile)
+            if displacement.fromRow == displacement.toRow {
+                sprite!.runAction(moveActionX)
+            } else if displacement.fromCol == displacement.toCol {
+                sprite!.runAction(moveActionY)
             }
             
+
             if displacement.newTile == true{
-                let oneNewTile = level.insertOneTile()
-                addTiles(oneNewTile)
-                print("insert one tile is called")
+//                let allTilesBeforeRemove = level.insertOneTile()
+//                addTiles(allTilesBeforeRemove)
+//                print("insert one tile is called")
+                let tilesFromModel = level.insertOneTile()
+                print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
+                print(tilesFromModel)
+                print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
+                addTiles(tilesFromModel)
             }
         }
-//        print ("**************************")
-//        print (tileSprites)
     }
     
 //    func removeTiles(tiles: Set<Tile>){
