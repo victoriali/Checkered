@@ -11,8 +11,6 @@ import UIKit
 
 class GameScene: SKScene {
     
-
-    
     var level: Level!
     var set = Set<Tile>()
     
@@ -22,6 +20,7 @@ class GameScene: SKScene {
     let TileHeightInner: CGFloat = 73.0
     
     let gameLayer = SKNode()
+    let boardLayer = SKNode()
     let boardTilesLayer = SKNode()
     
     var tileSprites = Array2D<SKShapeNode>(columns: NumColumns, rows: NumRows)
@@ -45,7 +44,9 @@ class GameScene: SKScene {
             x: -TileWidthOuter * CGFloat(NumColumns) / 2,
             y: -TileHeightOuter * CGFloat(NumRows) / 2)
         
+        boardLayer.position = layerPosition
         boardTilesLayer.position = layerPosition
+        gameLayer.addChild(boardLayer)
         gameLayer.addChild(boardTilesLayer)
     }
     
@@ -55,17 +56,14 @@ class GameScene: SKScene {
                 let boardTile = SKShapeNode()
                 boardTile.path = CGPathCreateWithRoundedRect(CGRect(origin: coordToCGPoint(column, row), size: CGSize(width: TileWidthInner, height: TileHeightInner)),4,4,nil)
                 boardTile.fillColor = SKColor.lightGrayColor()
-                boardTilesLayer.addChild(boardTile)
+                boardLayer.addChild(boardTile)
             }
         }
     }
     
     func addTiles(tiles: Set<Tile>){
         boardTilesLayer.removeAllChildren()
-        setupBoard()
         for tile in tiles {
-//            print("************************************************")
-//            print(tile)
             let tileSprite = SKShapeNode()
             
             tileSprite.path = CGPathCreateWithRoundedRect(CGRect(origin: coordToCGPoint(tile.column, tile.row), size: CGSize(width: TileWidthInner, height: TileHeightInner)),4,4,nil)
@@ -75,9 +73,6 @@ class GameScene: SKScene {
             boardTilesLayer.addChild(tileSprite)
             tileSprites[tile.column, tile.row] = tileSprite
         }
-//        print("tile set addTiles")
-//        print(tiles)
-//        
     }
     
     func coordToCGPoint(column:Int, _ row:Int) -> CGPoint {
@@ -123,38 +118,25 @@ class GameScene: SKScene {
 //                //                removeTiles(removeTile)
 //            }
 //
-            let moveActionX = SKAction.moveByX(coordToCGPoint(displacement.toCol, displacement.toRow).x - coordToCGPoint(displacement.fromCol, displacement.fromRow).x, y: coordToCGPoint(displacement.toCol, displacement.toRow).y - coordToCGPoint(displacement.fromCol, displacement.fromRow).y, duration: 5)
-            let moveActionY = SKAction.moveByY(coordToCGPoint(displacement.toCol, displacement.toRow).x - coordToCGPoint(displacement.fromCol, displacement.fromRow).x, y: coordToCGPoint(displacement.toCol, displacement.toRow).y - coordToCGPoint(displacement.fromCol, displacement.fromRow).y, duration: 5)
+            let moveAction = SKAction.moveByX(coordToCGPoint(displacement.toCol, displacement.toRow).x - coordToCGPoint(displacement.fromCol, displacement.fromRow).x, y: coordToCGPoint(displacement.toCol, displacement.toRow).y - coordToCGPoint(displacement.fromCol, displacement.fromRow).y, duration: 0.15)
 //            let moveAction = SKAction.moveTo(coordToCGPoint(displacement.toCol, displacement.toRow), duration: 0.5)
             
-            if displacement.fromRow == displacement.toRow {
-                sprite!.runAction(moveActionX)
-            } else if displacement.fromCol == displacement.toCol {
-                sprite!.runAction(moveActionY)
-            }
-            
-
-            if displacement.newTile == true{
-//                let allTilesBeforeRemove = level.insertOneTile()
-//                addTiles(allTilesBeforeRemove)
-//                print("insert one tile is called")
-                let tilesFromModel = level.insertOneTile()
-                print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
-                print(tilesFromModel)
-                print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
-                addTiles(tilesFromModel)
-            }
+            sprite!.runAction(SKAction.sequence([
+                
+                SKAction.runBlock({
+                    sprite!.runAction(moveAction, completion:{
+                        if displacement.newTile == true{
+                            let tilesFromModel = self.level.insertOneTile()
+                            print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
+                            print(tilesFromModel)
+                            print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
+                            self.addTiles(tilesFromModel)
+                        }
+                    })
+                })
+                
+            ]))
         }
     }
-    
-//    func removeTiles(tiles: Set<Tile>){
-//        for tile in tiles {
-//            let tileSprite = SKShapeNode()
-//            tileSprites[tile.column, tile.row] = tileSprite
-//            tileSprite.removeFromParent()
-//        }
-//        print("tile set removeTiles")
-//        print(tiles)
-//    }
     
 }
