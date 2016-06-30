@@ -12,7 +12,14 @@ import SpriteKit
 class GameViewController: UIViewController{
     var scene: GameScene!
     var level: Level!
+    var step = 0
     
+    
+    @IBOutlet weak var stepLabel: UILabel!
+    
+    func updateLabel(){
+        stepLabel.text = String(format: "%ld", step)
+    }
     
     override func prefersStatusBarHidden() -> Bool {
         return true
@@ -85,26 +92,42 @@ class GameViewController: UIViewController{
         switch recognizer.direction {
         case UISwipeGestureRecognizerDirection.Left:
             level.userMoved(.Left)
-             scene.tilesMoved(level.displacements)
+            scene.tilesMoved(level.displacements)
+            if level.displacements.count != 0{
+                self.step += 1
+            }
+            self.updateLabel()
         case UISwipeGestureRecognizerDirection.Right:
             level.userMoved(.Right)
             scene.tilesMoved(level.displacements)
+            if level.displacements.count != 0{
+                self.step += 1
+            }
+            self.updateLabel()
         case UISwipeGestureRecognizerDirection.Up:
             level.userMoved(.Up)
             scene.tilesMoved(level.displacements)
+            if level.displacements.count != 0{
+                self.step += 1
+            }
+            self.updateLabel()
         case UISwipeGestureRecognizerDirection.Down:
             level.userMoved(.Down)
             scene.tilesMoved(level.displacements)
+            if level.displacements.count != 0{
+                self.step += 1
+            }
+            self.updateLabel()
             
         default:
             break
         }
-        
-       
-        
+
     }
     
     func beginGame(){
+        step = 0
+        updateLabel()
         initialTiles()
     }
     func initialTiles(){

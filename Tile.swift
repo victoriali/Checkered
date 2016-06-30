@@ -63,5 +63,4 @@ class Tile: CustomStringConvertible, Hashable {
 
 func == (lhs: Tile, rhs: Tile) -> Bool {
     return lhs.column == rhs.column && lhs.row == rhs.row
-//    return lhs.column == rhs.column && lhs.row == rhs.row && lhs.tileType == rhs.tileType && lhs.sprite == rhs.sprite && lhs.hashValue == rhs.hashValue && lhs.description == rhs.description
 }

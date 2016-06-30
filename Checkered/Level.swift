@@ -13,6 +13,7 @@ var NumColumns = 4
 var NumColumnsMinusOne = NumColumns - 1
 var NumRows = 4
 var NumRowsMinusOne = NumRows - 1
+//var step = 0
 
 var set = Set<Tile>()
 
@@ -23,7 +24,19 @@ enum InputDirection {
     case Down
 }
 
+struct TileDisplacement {
+    var fromCol:Int = 0
+    var fromRow:Int = 0
+    var toCol:Int = 0
+    var toRow:Int = 0
+    var tileType:TileType
+    
+    var disappear:Bool = false
+    var newTile:Bool = false
+}
+
 class Level {
+
     private var tiles = Array2D<Tile>(columns: NumColumns, rows: NumRows)
     
     var displacements:[TileDisplacement] = []
@@ -76,24 +89,6 @@ class Level {
         
         return tile
     }
-   
-//    func removeTiles(column: Int, row: Int, tileType: TileType) -> Set<Tile>{
-//        for tile in set {
-//            if tile.hashValue == (row*10 + column + ((tileType == .Black) ? 1000 : 0)) {
-//                print(tile.hashValue)
-//                print(row*10 + column + ((tileType == .Black) ? 1000 : 0))
-//                print("******************************************")
-//                print(set)
-//                print("******************************************")
-//                print(set.remove(tile))
-//                print("******************************************")
-//                print(set)
-//                print("******************************************")
-//                break
-//            }
-//        }
-//        return set
-//    }
     
     func userMoved(direction:InputDirection) {
         switch direction {
@@ -185,7 +180,6 @@ class Level {
                 }
             }
         }
-        
         
         if displacements.count > 1 {
             var index = 0
@@ -292,7 +286,6 @@ class Level {
             }
         }
         
-        
         if displacements.count > 1 {
             var index = 0
             while index <= displacements.count - 2 {
@@ -397,7 +390,6 @@ class Level {
                 }
             }
         }
-        
         
         if displacements.count > 1 {
             var index = 0
@@ -504,7 +496,6 @@ class Level {
             }
         }
         
-        
         if displacements.count > 1 {
             var index = 0
             while index <= displacements.count - 2 {
@@ -536,17 +527,6 @@ class Level {
         }
     }
     
-}
-
-struct TileDisplacement {
-    var fromCol:Int = 0
-    var fromRow:Int = 0
-    var toCol:Int = 0
-    var toRow:Int = 0
-    var tileType:TileType
-    
-    var disappear:Bool = false
-    var newTile:Bool = false
 }
 
 
