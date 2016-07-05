@@ -16,9 +16,19 @@ class GameViewController: UIViewController{
     
     
     @IBOutlet weak var stepLabel: UILabel!
+    @IBOutlet weak var minStepLabel: UILabel!
     
+    @IBAction func restart(sender: AnyObject) {
+        scene.removeAll()
+        level.removeAllTiles()
+        self.viewDidLoad()
+    }
     func updateLabel(){
         stepLabel.text = String(format: "%ld", step)
+    }
+    
+    func updateMinStepLabel(){
+        minStepLabel.text = String(format: "%ld",step)
     }
     
     override func prefersStatusBarHidden() -> Bool {
@@ -97,6 +107,8 @@ class GameViewController: UIViewController{
                 self.step += 1
             }
             self.updateLabel()
+
+            
         case UISwipeGestureRecognizerDirection.Right:
             level.userMoved(.Right)
             scene.tilesMoved(level.displacements)
@@ -104,6 +116,8 @@ class GameViewController: UIViewController{
                 self.step += 1
             }
             self.updateLabel()
+  
+            
         case UISwipeGestureRecognizerDirection.Up:
             level.userMoved(.Up)
             scene.tilesMoved(level.displacements)
@@ -111,6 +125,7 @@ class GameViewController: UIViewController{
                 self.step += 1
             }
             self.updateLabel()
+            
         case UISwipeGestureRecognizerDirection.Down:
             level.userMoved(.Down)
             scene.tilesMoved(level.displacements)
@@ -118,6 +133,7 @@ class GameViewController: UIViewController{
                 self.step += 1
             }
             self.updateLabel()
+            
             
         default:
             break

@@ -14,14 +14,24 @@ class GameScene: SKScene {
     var level: Level!
     var set = Set<Tile>()
     
-    let TileWidthOuter: CGFloat = 75.0
-    let TileHeightOuter: CGFloat = 75.0
-    let TileWidthInner: CGFloat = 73.0
-    let TileHeightInner: CGFloat = 73.0
+    var winLabel: SKLabelNode!
+    
+    var win: Bool = false {
+        didSet {
+            winLabel.text = "\(win)"
+        }
+    }
+    
+    let TileWidthOuter: CGFloat = 70.0
+    let TileHeightOuter: CGFloat = 70.0
+    let TileWidthInner: CGFloat = 68.0
+    let TileHeightInner: CGFloat = 68.0
     
     let gameLayer = SKNode()
     let boardLayer = SKNode()
     let boardTilesLayer = SKNode()
+    
+    var hasWon = false
     
     var tileSprites = Array2D<SKShapeNode>(columns: NumColumns, rows: NumRows)
     
@@ -97,12 +107,26 @@ class GameScene: SKScene {
                             print(tilesFromModel)
                             print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
                             self.addTiles(tilesFromModel)
+                            if self.level.calculateWin() == false {
+                                self.winLabel = SKLabelNode(fontNamed: "Gill Sans")
+                                self.winLabel.text = "Congratulations! You Won!"
+                                self.winLabel.fontColor = SKColor.blackColor()
+                                self.winLabel.fontSize = 22
+                                self.winLabel.position = CGPoint(x: 150, y: 320)
+                                self.winLabel.zPosition = 3
+                                self.winLabel.color = SKColor.yellowColor()
+                                self.boardTilesLayer.addChild(self.winLabel)
+                            }
                         }
                     })
                 })
                 
             ]))
         }
+    }
+    
+    func removeAll(){
+        boardTilesLayer.removeAllChildren()
     }
     
 }

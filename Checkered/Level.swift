@@ -13,7 +13,7 @@ var NumColumns = 4
 var NumColumnsMinusOne = NumColumns - 1
 var NumRows = 4
 var NumRowsMinusOne = NumRows - 1
-//var step = 0
+var currentMinStep = 999999
 
 var set = Set<Tile>()
 
@@ -40,6 +40,15 @@ class Level {
     private var tiles = Array2D<Tile>(columns: NumColumns, rows: NumRows)
     
     var displacements:[TileDisplacement] = []
+    
+    func removeAllTiles(){
+        set.removeAll()
+        for col in 0..<NumColumns {
+            for row in 0..<NumRows {
+                tiles[col, row] = nil
+            }
+        }
+    }
     
     func initialTiles() -> Set<Tile>{
         return createInitialTiles()
@@ -69,6 +78,8 @@ class Level {
                 }
             }
         }
+        print("SET FROM MODEL")
+        print(setFromModel)
         return setFromModel
     }
     
@@ -88,6 +99,32 @@ class Level {
         print(tile)
         
         return tile
+    }
+    
+    func calculateWin() -> Bool{
+        var totalCheck = 0
+        for row in 0..<NumRows {
+            for col in 0..<NumColumns {
+                let tileTypeInNum = (row + col)%2
+                //                print("col: \(col) row: \(row) tileTypeInNum: \(tileTypeInNum)")
+                if tileTypeInNum == 0 && tiles[col,row]?.tileType == tiles[0,0]?.tileType && tiles[col,row] != nil{
+                    totalCheck += 1
+                    print("totalCheck: \(totalCheck)")
+                }else if tileTypeInNum == 1 && tiles[col,row]?.tileType != tiles[0,0]?.tileType && tiles[col,row] != nil{
+                    totalCheck += 1
+                    print("totalCheck: \(totalCheck)")
+                }
+            }
+        }
+        print("Expected: \(NumRows * NumColumns)")
+        print("finalTotalCheck: \(totalCheck)")
+        
+        if totalCheck == NumRows * NumColumns {
+            print ("DONEDONE!")
+            return true
+        } else {
+            return false
+        }
     }
     
     func userMoved(direction:InputDirection) {
@@ -524,6 +561,17 @@ class Level {
                     tile.hasMerged = false
                 }
             }
+        }
+    }
+    
+    func saveMinStep(minStep:Int){
+        
+        if let currentMinStep:Int = NSUserDefaults.standardUserDefaults().valueForKey("minstep") as? Int{
+            if(minStep < currentMinStep){
+                NSUserDefaults.setValue(minStep, forKey: "minstep")
+            }
+        }else{
+            NSUserDefaults.setValue(minStep, forKey: "minstep")
         }
     }
     
