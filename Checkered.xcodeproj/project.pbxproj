@@ -20,6 +20,7 @@
 		5FC7E0271D0CF80F0024BB68 /* Array2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC7E0261D0CF80F0024BB68 /* Array2D.swift */; };
 		5FC7E02D1D0D09770024BB68 /* Tile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC7E02C1D0D09770024BB68 /* Tile.swift */; };
 		5FC7E0311D0D30C30024BB68 /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC7E0301D0D30C30024BB68 /* Level.swift */; };
+		5FEFF16C1D2BC0AE00FF5584 /* YouWon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FEFF16B1D2BC0AE00FF5584 /* YouWon.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		5FC7E0261D0CF80F0024BB68 /* Array2D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Array2D.swift; sourceTree = "<group>"; };
 		5FC7E02C1D0D09770024BB68 /* Tile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Tile.swift; path = ../Tile.swift; sourceTree = "<group>"; };
 		5FC7E0301D0D30C30024BB68 /* Level.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
+		5FEFF16B1D2BC0AE00FF5584 /* YouWon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YouWon.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +117,7 @@
 				5FA6699B1D2A5B6400C69DA5 /* MainLogo.swift */,
 				5FA6699D1D2A5DD900C69DA5 /* StepSquare.swift */,
 				5FA669A11D2B58EE00C69DA5 /* BestScoreSquare.swift */,
+				5FEFF16B1D2BC0AE00FF5584 /* YouWon.swift */,
 				5FA6699F1D2A622200C69DA5 /* Restart.swift */,
 			);
 			name = Others;
@@ -196,6 +199,7 @@
 				5FA669A21D2B58EE00C69DA5 /* BestScoreSquare.swift in Sources */,
 				5FA669A01D2A622200C69DA5 /* Restart.swift in Sources */,
 				5FC7E0151D0C74D10024BB68 /* GameScene.swift in Sources */,
+				5FEFF16C1D2BC0AE00FF5584 /* YouWon.swift in Sources */,
 				5FC7E0311D0D30C30024BB68 /* Level.swift in Sources */,
 				5FC7E0271D0CF80F0024BB68 /* Array2D.swift in Sources */,
 				5FA6699C1D2A5B6400C69DA5 /* MainLogo.swift in Sources */,

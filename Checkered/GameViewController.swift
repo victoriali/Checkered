@@ -13,10 +13,12 @@ class GameViewController: UIViewController{
     var scene: GameScene!
     var level: Level!
     var step = 0
+    var successMoveCounter = 0
     
     
     @IBOutlet weak var stepLabel: UILabel!
     @IBOutlet weak var minStepLabel: UILabel!
+    @IBOutlet weak var youWon: YouWon!
     
     @IBAction func restart(sender: AnyObject) {
         scene.removeAll()
@@ -28,7 +30,7 @@ class GameViewController: UIViewController{
     }
     
     func updateMinStepLabel(){
-        minStepLabel.text = String(format: "%ld",step)
+        minStepLabel.text = String(NSUserDefaults.standardUserDefaults().stringForKey("minstep"))
     }
     
     override func prefersStatusBarHidden() -> Bool {
@@ -45,7 +47,7 @@ class GameViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        youWon.hidden = true
         // Configure the view.
         let skView = view as! SKView
         skView.multipleTouchEnabled = false
@@ -102,38 +104,129 @@ class GameViewController: UIViewController{
         switch recognizer.direction {
         case UISwipeGestureRecognizerDirection.Left:
             level.userMoved(.Left)
-            scene.tilesMoved(level.displacements)
-            if level.displacements.count != 0{
-                self.step += 1
-            }
-            self.updateLabel()
-
+            scene.tilesMoved(level.displacements,completionHandler: {(success) -> Void in
+                if success {
+                    print("success")
+                    self.successMoveCounter += 1
+                } else {
+                    print ("fail")
+                }
+                
+                if self.successMoveCounter == self.level.displacements.count {
+                    print("successMoveCounter : \(self.successMoveCounter)")
+                    print("displacementCount : \(self.level.displacements.count)")
+                    if self.level.displacements.count != 0{
+                        self.step += 1
+                        let lastDisplacement = self.level.displacements.last
+                        if lastDisplacement?.newTile == true{
+                            let tilesFromModel = self.level.insertOneTile()
+                            self.scene.addTiles(tilesFromModel)
+                            if self.level.calculateWin() == true {
+                                self.youWon.hidden = false
+                            }
+                            print("Here")
+                        }
+                        
+                    }
+                    self.updateLabel()
+                    self.successMoveCounter = 0
+                }
+            })
             
         case UISwipeGestureRecognizerDirection.Right:
             level.userMoved(.Right)
-            scene.tilesMoved(level.displacements)
-            if level.displacements.count != 0{
-                self.step += 1
-            }
-            self.updateLabel()
-  
+            scene.tilesMoved(level.displacements,completionHandler: {(success) -> Void in
+                if success {
+                    print("success")
+                    self.successMoveCounter += 1
+                } else {
+                    print ("fail")
+                }
+                
+                if self.successMoveCounter == self.level.displacements.count {
+                    print("successMoveCounter : \(self.successMoveCounter)")
+                    print("displacementCount : \(self.level.displacements.count)")
+                    if self.level.displacements.count != 0{
+                        self.step += 1
+                        let lastDisplacement = self.level.displacements.last
+                        if lastDisplacement?.newTile == true{
+                            let tilesFromModel = self.level.insertOneTile()
+                            self.scene.addTiles(tilesFromModel)
+                            if self.level.calculateWin() == true {
+                                self.youWon.hidden = false
+                            }
+                            print("Here")
+                        }
+                        
+                    }
+                    self.updateLabel()
+                    self.successMoveCounter = 0
+                }
+            })
+
             
         case UISwipeGestureRecognizerDirection.Up:
             level.userMoved(.Up)
-            scene.tilesMoved(level.displacements)
-            if level.displacements.count != 0{
-                self.step += 1
-            }
-            self.updateLabel()
+            scene.tilesMoved(level.displacements,completionHandler: {(success) -> Void in
+                if success {
+                    print("success")
+                    self.successMoveCounter += 1
+                } else {
+                    print ("fail")
+                }
+                
+                if self.successMoveCounter == self.level.displacements.count {
+                    print("successMoveCounter : \(self.successMoveCounter)")
+                    print("displacementCount : \(self.level.displacements.count)")
+                    if self.level.displacements.count != 0{
+                        self.step += 1
+                        let lastDisplacement = self.level.displacements.last
+                        if lastDisplacement?.newTile == true{
+                            let tilesFromModel = self.level.insertOneTile()
+                            self.scene.addTiles(tilesFromModel)
+                            if self.level.calculateWin() == true {
+                                self.youWon.hidden = false
+                            }
+                            print("Here")
+                        }
+                        
+                    }
+                    self.updateLabel()
+                    self.successMoveCounter = 0
+                }
+            })
             
         case UISwipeGestureRecognizerDirection.Down:
             level.userMoved(.Down)
-            scene.tilesMoved(level.displacements)
-            if level.displacements.count != 0{
-                self.step += 1
-            }
-            self.updateLabel()
-            
+            scene.tilesMoved(level.displacements,completionHandler: {(success) -> Void in
+                if success {
+                    print("success")
+                    self.successMoveCounter += 1
+                } else {
+                    print ("fail")
+                }
+                
+                if self.successMoveCounter == self.level.displacements.count {
+                    print("successMoveCounter : \(self.successMoveCounter)")
+                    print("displacementCount : \(self.level.displacements.count)")
+                    if self.level.displacements.count != 0{
+                        self.step += 1
+                        let lastDisplacement = self.level.displacements.last
+                        if lastDisplacement?.newTile == true{
+                            let tilesFromModel = self.level.insertOneTile()
+                            self.scene.addTiles(tilesFromModel)
+                            if self.level.calculateWin() == true {
+                                self.youWon.hidden = false
+                            }
+                            print("Here")
+                        }
+                        
+                    }
+                    self.updateLabel()
+                    self.successMoveCounter = 0
+                }
+            })
+
             
         default:
             break

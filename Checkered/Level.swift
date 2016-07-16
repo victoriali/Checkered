@@ -106,7 +106,6 @@ class Level {
         for row in 0..<NumRows {
             for col in 0..<NumColumns {
                 let tileTypeInNum = (row + col)%2
-                //                print("col: \(col) row: \(row) tileTypeInNum: \(tileTypeInNum)")
                 if tileTypeInNum == 0 && tiles[col,row]?.tileType == tiles[0,0]?.tileType && tiles[col,row] != nil{
                     totalCheck += 1
                     print("totalCheck: \(totalCheck)")
@@ -149,11 +148,11 @@ class Level {
         for row in 0..<NumRows {
             for colMax in 1..<NumColumns {
                 for col in colMax.stride(through: 1, by: -1) {
-                    print ("\(col), \(row), \(colMax)")
+
                     if let tile = tiles[col, row] {
                         
                         if tiles[col-1, row] == nil {
-                            print ("First session")
+
                             tiles[col-1, row] = tile
                             tiles[col, row] = nil
                             tile.column = col - 1
@@ -167,21 +166,16 @@ class Level {
                                 displacements[index].toRow = row
                                 displacements[index].tileType = tile.tileType
                                 
-                                print("if let")
-                                print(displacements)
-                                
                             } else {
                                 
                                 let displacement = TileDisplacement(fromCol: colMax, fromRow: row, toCol: col - 1, toRow: row, tileType: tile.tileType, disappear: false, newTile: true)
                                 
                                 displacements.append(displacement)
-                                
-                                print("else")
-                                print(displacements)
+
                             }
                             
                         } else if tiles[col-1, row]?.tileType == tiles[col, row]!.tileType && tiles[col-1, row]?.hasMerged == false && tiles[col, row]?.hasMerged == false{
-                            print ("Second session")
+                            
                             tiles[col-1, row] = nil
                             tiles[col, row] = nil
                             tiles[col-1, row] = tile
@@ -201,18 +195,12 @@ class Level {
                                 displacements[index].toCol = col - 1
                                 displacements[index].toRow = row
                                 displacements[index].tileType = tile.tileType
-                                print("if let merge")
-                                print(displacements)
                                
                             } else {
                                 let displacement = TileDisplacement(fromCol: colMax, fromRow: row, toCol: col-1, toRow: row, tileType: tile.tileType, disappear: true, newTile: true)
                                 displacements.append(displacement)
-                                print("else merge")
-                                print(displacements)
                             }
                         }
-                        print ("\(col), \(row), \(colMax), \(tile.tileType)")
-                        print (tiles)
                     }
                 }
             }
@@ -237,8 +225,6 @@ class Level {
         }
         
         self.displacements = displacements
-        print(displacements)
-        print("done")
         
         for col in 0..<NumColumns {
             for row in 0..<NumRows {
@@ -256,12 +242,11 @@ class Level {
         for row in 0..<NumRows {
             for colMax in 1..<NumColumns {
                 for col in (NumColumns - colMax - 1)..<(NumColumns - 1){
-                    print ("\(col), \(row), \(colMax)")
                     
                     if let tile = tiles[col, row] {
                         
                         if tiles[col+1, row] == nil {
-                            print ("First session")
+
                             tiles[col+1, row] = tile
                             tiles[col, row] = nil
                             tile.column = col + 1
@@ -272,21 +257,15 @@ class Level {
                             displacements[index].toRow = row
                             displacements[index].tileType = tile.tileType
                             
-                            print("if let")
-                            print(displacements)
-                            
                         } else {
                             
                             let displacement = TileDisplacement(fromCol: (NumColumnsMinusOne-colMax), fromRow: row, toCol: col + 1, toRow: row, tileType: tile.tileType, disappear: false, newTile: true)
                             
                             displacements.append(displacement)
-                            
-                            print("else")
-                            print(displacements)
                         }
                             
                         } else if tiles[col+1, row]?.tileType == tiles[col, row]!.tileType && tiles[col+1, row]?.hasMerged == false && tiles[col, row]?.hasMerged == false{
-                            print ("Second session")
+                            
                             tiles[col+1, row] = nil
                             tiles[col, row] = nil
                             tiles[col+1, row] = tile
@@ -306,18 +285,12 @@ class Level {
                                 displacements[index].toCol = col + 1
                                 displacements[index].toRow = row
                                 displacements[index].tileType = tile.tileType
-                                print("if let merge")
-                                print(displacements)
                                 
                             } else {
                                 let displacement = TileDisplacement(fromCol: (NumColumnsMinusOne-colMax), fromRow: row, toCol: col+1, toRow: row, tileType: tile.tileType, disappear: true, newTile: true)
                                 displacements.append(displacement)
-                                print("else merge")
-                                print(displacements)
                             }
                         }
-                        print ("\(col), \(row), \(colMax), \(tile.tileType)")
-                        print (tiles)
                     }
                 }
             }
@@ -342,8 +315,6 @@ class Level {
         }
         
         self.displacements = displacements
-        print(displacements)
-        print("done")
         
         for col in 0..<NumColumns {
             for row in 0..<NumRows {
@@ -361,12 +332,10 @@ class Level {
         for col in 0..<NumColumns {
             for rowMax in 1..<NumRows {
                 for row in rowMax.stride(through: 1, by: -1){
-                    print ("\(col), \(row), \(rowMax)")
                     
                     if let tile = tiles[col, row] {
                         
                         if tiles[col, row-1] == nil {
-                            print ("First session")
                             tiles[col, row-1] = tile
                             tiles[col, row] = nil
                             tile.row = row - 1
@@ -377,21 +346,16 @@ class Level {
                                 displacements[index].toRow = row - 1
                                 displacements[index].tileType = tile.tileType
                                 
-                                print("if let")
-                                print(displacements)
-                                
                             } else {
                                 
                                 let displacement = TileDisplacement(fromCol: col, fromRow: rowMax, toCol: col, toRow: row - 1, tileType: tile.tileType, disappear: false, newTile: true)
                                 
                                 displacements.append(displacement)
                                 
-                                print("else")
-                                print(displacements)
                             }
                             
                         } else if tiles[col, row-1]?.tileType == tiles[col, row]!.tileType && tiles[col, row-1]?.hasMerged == false && tiles[col, row]?.hasMerged == false{
-                            print ("Second session")
+
                             tiles[col, row-1] = nil
                             tiles[col, row] = nil
                             tiles[col, row-1] = tile
@@ -411,18 +375,12 @@ class Level {
                                 displacements[index].toCol = col
                                 displacements[index].toRow = row - 1
                                 displacements[index].tileType = tile.tileType
-                                print("if let merge")
-                                print(displacements)
                                 
                             } else {
                                 let displacement = TileDisplacement(fromCol: col, fromRow: rowMax, toCol: col, toRow: row-1, tileType: tile.tileType, disappear: true, newTile: true)
                                 displacements.append(displacement)
-                                print("else merge")
-                                print(displacements)
                             }
                         }
-                        print ("\(col), \(row), \(rowMax), \(tile.tileType)")
-                        print (tiles)
                     }
                 }
             }
@@ -447,8 +405,6 @@ class Level {
         }
         
         self.displacements = displacements
-        print(displacements)
-        print("done")
         
         for col in 0..<NumColumns {
             for row in 0..<NumRows {
@@ -466,12 +422,10 @@ class Level {
         for col in 0..<NumColumns {
             for rowMax in 1..<NumRows {
                 for row in (NumRows - rowMax - 1)..<(NumRows - 1){
-                    print ("\(col), \(row), \(rowMax)")
                     
                     if let tile = tiles[col, row] {
                         
                         if tiles[col, row+1] == nil {
-                            print ("First session")
                             tiles[col, row+1] = tile
                             tiles[col, row] = nil
                             tile.row = row + 1
@@ -482,21 +436,16 @@ class Level {
                                 displacements[index].toRow = row + 1
                                 displacements[index].tileType = tile.tileType
                                 
-                                print("if let")
-                                print(displacements)
-                                
                             } else {
                                 
                                 let displacement = TileDisplacement(fromCol: col, fromRow: NumRowsMinusOne - rowMax, toCol: col, toRow: row + 1, tileType: tile.tileType, disappear: false, newTile: true)
                                 
                                 displacements.append(displacement)
-                                
-                                print("else")
-                                print(displacements)
+
                             }
                             
                         } else if tiles[col, row+1]?.tileType == tiles[col, row]!.tileType && tiles[col, row+1]?.hasMerged == false && tiles[col, row]?.hasMerged == false{
-                            print ("Second session")
+
                             tiles[col, row+1] = nil
                             tiles[col, row] = nil
                             tiles[col, row+1] = tile
@@ -516,18 +465,12 @@ class Level {
                                 displacements[index].toCol = col
                                 displacements[index].toRow = row + 1
                                 displacements[index].tileType = tile.tileType
-                                print("if let merge")
-                                print(displacements)
                                 
                             } else {
                                 let displacement = TileDisplacement(fromCol: col, fromRow: NumRowsMinusOne - rowMax, toCol: col, toRow: row+1, tileType: tile.tileType, disappear: true, newTile: true)
                                 displacements.append(displacement)
-                                print("else merge")
-                                print(displacements)
                             }
                         }
-                        print ("\(col), \(row), \(rowMax), \(tile.tileType)")
-                        print (tiles)
                     }
                 }
             }
@@ -552,8 +495,6 @@ class Level {
         }
         
         self.displacements = displacements
-        print(displacements)
-        print("done")
         
         for col in 0..<NumColumns {
             for row in 0..<NumRows {
@@ -570,7 +511,8 @@ class Level {
             if(minStep < currentMinStep){
                 NSUserDefaults.setValue(minStep, forKey: "minstep")
             }
-        }else{
+        }
+        else{
             NSUserDefaults.setValue(minStep, forKey: "minstep")
         }
     }

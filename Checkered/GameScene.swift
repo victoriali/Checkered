@@ -31,7 +31,7 @@ class GameScene: SKScene {
     let boardLayer = SKNode()
     let boardTilesLayer = SKNode()
     
-    var hasWon = false
+//    var completeAction = false
     
     var tileSprites = Array2D<SKShapeNode>(columns: NumColumns, rows: NumRows)
     
@@ -88,39 +88,44 @@ class GameScene: SKScene {
     func coordToCGPoint(column:Int, _ row:Int) -> CGPoint {
         return CGPoint(x:CGFloat(column)*TileWidthOuter, y:CGFloat(row)*TileHeightOuter)
     }
-
     
-    func tilesMoved(displacements:[TileDisplacement]) {
+    typealias CompletionHandler = (success:Bool) -> Void
+    
+    func tilesMoved(displacements:[TileDisplacement],completionHandler: CompletionHandler) {
         for displacement in displacements {
+            var flag = false
             let sprite = tileSprites[displacement.fromCol, displacement.fromRow]
             
             let moveAction = SKAction.moveByX(coordToCGPoint(displacement.toCol, displacement.toRow).x - coordToCGPoint(displacement.fromCol, displacement.fromRow).x, y: coordToCGPoint(displacement.toCol, displacement.toRow).y - coordToCGPoint(displacement.fromCol, displacement.fromRow).y, duration: 0.15)
 //            let moveAction = SKAction.moveTo(coordToCGPoint(displacement.toCol, displacement.toRow), duration: 0.5)
             
+//            sprite!.runAction(moveAction)
+
             sprite!.runAction(SKAction.sequence([
                 
                 SKAction.runBlock({
                     sprite!.runAction(moveAction, completion:{
-                        if displacement.newTile == true{
-                            let tilesFromModel = self.level.insertOneTile()
-                            print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
-                            print(tilesFromModel)
-                            print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
-                            self.addTiles(tilesFromModel)
-                            if self.level.calculateWin() == false {
-                                self.winLabel = SKLabelNode(fontNamed: "Gill Sans")
-                                self.winLabel.text = "Congratulations! You Won!"
-                                self.winLabel.fontColor = SKColor.blackColor()
-                                self.winLabel.fontSize = 22
-                                self.winLabel.position = CGPoint(x: 150, y: 320)
-                                self.winLabel.zPosition = 3
-                                self.winLabel.color = SKColor.yellowColor()
-                                self.boardTilesLayer.addChild(self.winLabel)
-                            }
-                        }
+                        flag = true
+                        completionHandler(success: flag)
+//                        if displacement.newTile == true{
+//                            let tilesFromModel = self.level.insertOneTile()
+//                            print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
+//                            print(tilesFromModel)
+//                            print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
+//                            self.addTiles(tilesFromModel)
+////                            if self.level.calculateWin() == true {
+////                                self.winLabel = SKLabelNode(fontNamed: "Gill Sans")
+////                                self.winLabel.text = "Congratulations! You Won!"
+////                                self.winLabel.fontColor = SKColor.blackColor()
+////                                self.winLabel.fontSize = 22
+////                                self.winLabel.position = CGPoint(x: 150, y: 320)
+////                                self.winLabel.zPosition = 3
+////                                self.winLabel.color = SKColor.yellowColor()
+////                                self.boardTilesLayer.addChild(self.winLabel)
+////                            }
+//                        }
                     })
                 })
-                
             ]))
         }
     }
