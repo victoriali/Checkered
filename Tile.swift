@@ -42,11 +42,13 @@ class Tile: CustomStringConvertible, Hashable {
     var row: Int
     var tileType: TileType
     var sprite: SKSpriteNode?
+    var hasMerged: Bool
     
-    init(column: Int, row: Int, tileType: TileType) {
+    init(column: Int, row: Int, tileType: TileType, hasMerged: Bool) {
         self.column = column
         self.row = row
         self.tileType = tileType
+        self.hasMerged = hasMerged
     }
     
     var description: String {
@@ -54,11 +56,11 @@ class Tile: CustomStringConvertible, Hashable {
     }
     
     var hashValue: Int {
-        return row*10 + column
+        return row*10 + column + ((tileType == .Black) ? 1000 : 0)
     }
     
 }
 
-func ==(lhs: Tile, rhs: Tile) -> Bool {
+func == (lhs: Tile, rhs: Tile) -> Bool {
     return lhs.column == rhs.column && lhs.row == rhs.row
 }

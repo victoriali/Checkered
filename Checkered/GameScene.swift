@@ -11,17 +11,27 @@ import UIKit
 
 class GameScene: SKScene {
     
-
-    
     var level: Level!
+    var set = Set<Tile>()
     
-    let TileWidthOuter: CGFloat = 75.0
-    let TileHeightOuter: CGFloat = 75.0
-    let TileWidthInner: CGFloat = 73.0
-    let TileHeightInner: CGFloat = 73.0
+    var winLabel: SKLabelNode!
+    
+    var win: Bool = false {
+        didSet {
+            winLabel.text = "\(win)"
+        }
+    }
+    
+    let TileWidthOuter: CGFloat = 70.0
+    let TileHeightOuter: CGFloat = 70.0
+    let TileWidthInner: CGFloat = 68.0
+    let TileHeightInner: CGFloat = 68.0
     
     let gameLayer = SKNode()
+    let boardLayer = SKNode()
     let boardTilesLayer = SKNode()
+    
+//    var completeAction = false
     
     var tileSprites = Array2D<SKShapeNode>(columns: NumColumns, rows: NumRows)
     
@@ -44,7 +54,9 @@ class GameScene: SKScene {
             x: -TileWidthOuter * CGFloat(NumColumns) / 2,
             y: -TileHeightOuter * CGFloat(NumRows) / 2)
         
+        boardLayer.position = layerPosition
         boardTilesLayer.position = layerPosition
+        gameLayer.addChild(boardLayer)
         gameLayer.addChild(boardTilesLayer)
     }
     
@@ -54,15 +66,15 @@ class GameScene: SKScene {
                 let boardTile = SKShapeNode()
                 boardTile.path = CGPathCreateWithRoundedRect(CGRect(origin: coordToCGPoint(column, row), size: CGSize(width: TileWidthInner, height: TileHeightInner)),4,4,nil)
                 boardTile.fillColor = SKColor.lightGrayColor()
-                boardTilesLayer.addChild(boardTile)
+                boardLayer.addChild(boardTile)
             }
         }
     }
     
     func addTiles(tiles: Set<Tile>){
+        boardTilesLayer.removeAllChildren()
         for tile in tiles {
             let tileSprite = SKShapeNode()
-            
             
             tileSprite.path = CGPathCreateWithRoundedRect(CGRect(origin: coordToCGPoint(tile.column, tile.row), size: CGSize(width: TileWidthInner, height: TileHeightInner)),4,4,nil)
             let tileColor = tile.tileType == .Red ? SKColor.redColor() : SKColor.blackColor()
@@ -70,61 +82,56 @@ class GameScene: SKScene {
             tileSprite.fillColor = tileColor
             boardTilesLayer.addChild(tileSprite)
             tileSprites[tile.column, tile.row] = tileSprite
-            
         }
     }
     
     func coordToCGPoint(column:Int, _ row:Int) -> CGPoint {
         return CGPoint(x:CGFloat(column)*TileWidthOuter, y:CGFloat(row)*TileHeightOuter)
     }
-
     
-    func tilesMoved(displacements:[TileDisplacement]) {
+    typealias CompletionHandler = (success:Bool) -> Void
+    
+    func tilesMoved(displacements:[TileDisplacement],completionHandler: CompletionHandler) {
         for displacement in displacements {
+            var flag = false
             let sprite = tileSprites[displacement.fromCol, displacement.fromRow]
-
-            print("original position CG Point")
-            print(coordToCGPoint(displacement.fromCol, displacement.fromRow))
-            print("displacement CG Point")
-            print(coordToCGPoint(displacement.toCol, displacement.toRow))
-            print("Move By CG Point")
-            print(coordToCGPoint(displacement.toCol-displacement.fromCol, displacement.toRow-displacement.fromRow))
             
-            let moveAction = SKAction.moveByX(coordToCGPoint(displacement.toCol, displacement.toRow).x - coordToCGPoint(displacement.fromCol, displacement.fromRow).x, y: coordToCGPoint(displacement.toCol, displacement.toRow).y - coordToCGPoint(displacement.fromCol, displacement.fromRow).y, duration: 0.1)
+            let moveAction = SKAction.moveByX(coordToCGPoint(displacement.toCol, displacement.toRow).x - coordToCGPoint(displacement.fromCol, displacement.fromRow).x, y: coordToCGPoint(displacement.toCol, displacement.toRow).y - coordToCGPoint(displacement.fromCol, displacement.fromRow).y, duration: 0.15)
 //            let moveAction = SKAction.moveTo(coordToCGPoint(displacement.toCol, displacement.toRow), duration: 0.5)
-            sprite!.runAction(moveAction)
             
-            if displacement.newTile == true{
-                let oneNewTile = level.insertOneTile()
-                addTiles(oneNewTile)
-            }
-            if displacement.disappear == true{
-                let removeTile = level.removeTiles(displacement.toCol, row: displacement.toRow, tileType: displacement.tileType)
-                removeTiles(removeTile)
-//                let changeColor = level.changeColor(displacement.toCol-1, row: displacement.toRow, tileType: displacement.tileType)
-//                changeTiles(changeColor)
-            }
+//            sprite!.runAction(moveAction)
+
+            sprite!.runAction(SKAction.sequence([
+                
+                SKAction.runBlock({
+                    sprite!.runAction(moveAction, completion:{
+                        flag = true
+                        completionHandler(success: flag)
+//                        if displacement.newTile == true{
+//                            let tilesFromModel = self.level.insertOneTile()
+//                            print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
+//                            print(tilesFromModel)
+//                            print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
+//                            self.addTiles(tilesFromModel)
+////                            if self.level.calculateWin() == true {
+////                                self.winLabel = SKLabelNode(fontNamed: "Gill Sans")
+////                                self.winLabel.text = "Congratulations! You Won!"
+////                                self.winLabel.fontColor = SKColor.blackColor()
+////                                self.winLabel.fontSize = 22
+////                                self.winLabel.position = CGPoint(x: 150, y: 320)
+////                                self.winLabel.zPosition = 3
+////                                self.winLabel.color = SKColor.yellowColor()
+////                                self.boardTilesLayer.addChild(self.winLabel)
+////                            }
+//                        }
+                    })
+                })
+            ]))
         }
     }
     
-    func removeTiles(tiles: Set<Tile>){
-        for tile in tiles {
-            let tileSprite = SKShapeNode()
-            tileSprites[tile.column, tile.row] = tileSprite
-            tileSprite.removeFromParent()
-        }
+    func removeAll(){
+        boardTilesLayer.removeAllChildren()
     }
-//    
-//    func changeTiles(tiles: Set<Tile>){
-//        for tile in tiles {
-//            let tileSprite = SKShapeNode()
-//            
-//            
-//            let tileColor = tile.tileType == .Red ? SKColor.blackColor() : SKColor.redColor()
-//            tileSprite.fillColor = tileColor
-//            
-//            tileSprites[tile.column, tile.row] = tileSprite
-//        }
-//    }
     
 }
