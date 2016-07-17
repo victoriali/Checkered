@@ -13,12 +13,13 @@ class GameViewController: UIViewController{
     var scene: GameScene!
     var level: Level!
     var step = 0
+    var minStep = 999999
     var successMoveCounter = 0
     
     
     @IBOutlet weak var stepLabel: UILabel!
-    @IBOutlet weak var minStepLabel: UILabel!
     @IBOutlet weak var youWon: YouWon!
+    @IBOutlet weak var minStepLabel: UILabel!
     
     @IBAction func restart(sender: AnyObject) {
         scene.removeAll()
@@ -28,11 +29,6 @@ class GameViewController: UIViewController{
     func updateLabel(){
         stepLabel.text = String(format: "%ld", step)
     }
-    
-    func updateMinStepLabel(){
-        minStepLabel.text = String(NSUserDefaults.standardUserDefaults().stringForKey("minstep"))
-    }
-    
     override func prefersStatusBarHidden() -> Bool {
         return true
     }
@@ -65,6 +61,13 @@ class GameViewController: UIViewController{
         beginGame()
         
         addRecognizers()
+        
+        let minStepDefault = NSUserDefaults.standardUserDefaults()
+        
+        if minStepDefault.valueForKey("minStep") != nil {
+            minStep = minStepDefault.valueForKey("minStep") as! Int
+            minStepLabel.text = String(format: "%ld", minStep)
+        }
         
     }
     
@@ -123,6 +126,15 @@ class GameViewController: UIViewController{
                             self.scene.addTiles(tilesFromModel)
                             if self.level.calculateWin() == true {
                                 self.youWon.hidden = false
+                                if self.step < self.minStep {
+                                    print("Hello")
+                                    self.minStep = self.step
+                                    self.minStepLabel.text = String(format: "%ld", self.minStep)
+                                    
+                                    let minStepDefault = NSUserDefaults.standardUserDefaults()
+                                    minStepDefault.setValue(self.minStep, forKey: "minStep")
+                                    minStepDefault.synchronize()
+                                }
                             }
                             print("Here")
                         }
@@ -154,6 +166,15 @@ class GameViewController: UIViewController{
                             self.scene.addTiles(tilesFromModel)
                             if self.level.calculateWin() == true {
                                 self.youWon.hidden = false
+                                if self.step < self.minStep {
+                                    print("Hello")
+                                    self.minStep = self.step
+                                    self.minStepLabel.text = String(format: "%ld", self.minStep)
+                                    
+                                    let minStepDefault = NSUserDefaults.standardUserDefaults()
+                                    minStepDefault.setValue(self.minStep, forKey: "minStep")
+                                    minStepDefault.synchronize()
+                                }
                             }
                             print("Here")
                         }
@@ -186,6 +207,15 @@ class GameViewController: UIViewController{
                             self.scene.addTiles(tilesFromModel)
                             if self.level.calculateWin() == true {
                                 self.youWon.hidden = false
+                                if self.step < self.minStep {
+                                    print("Hello")
+                                    self.minStep = self.step
+                                    self.minStepLabel.text = String(format: "%ld", self.minStep)
+                                    
+                                    let minStepDefault = NSUserDefaults.standardUserDefaults()
+                                    minStepDefault.setValue(self.minStep, forKey: "minStep")
+                                    minStepDefault.synchronize()
+                                }
                             }
                             print("Here")
                         }
@@ -217,6 +247,15 @@ class GameViewController: UIViewController{
                             self.scene.addTiles(tilesFromModel)
                             if self.level.calculateWin() == true {
                                 self.youWon.hidden = false
+                                if self.step < self.minStep {
+                                    print("Hello")
+                                    self.minStep = self.step
+                                    self.minStepLabel.text = String(format: "%ld", self.minStep)
+                                    
+                                    let minStepDefault = NSUserDefaults.standardUserDefaults()
+                                    minStepDefault.setValue(self.minStep, forKey: "minStep")
+                                    minStepDefault.synchronize()
+                                }
                             }
                             print("Here")
                         }

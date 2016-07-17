@@ -504,19 +504,6 @@ class Level {
             }
         }
     }
-    
-    func saveMinStep(minStep:Int){
-        
-        if let currentMinStep:Int = NSUserDefaults.standardUserDefaults().valueForKey("minstep") as? Int{
-            if(minStep < currentMinStep){
-                NSUserDefaults.setValue(minStep, forKey: "minstep")
-            }
-        }
-        else{
-            NSUserDefaults.setValue(minStep, forKey: "minstep")
-        }
-    }
-    
 }
 
 
