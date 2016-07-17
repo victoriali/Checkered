@@ -31,8 +31,6 @@ class GameScene: SKScene {
     let boardLayer = SKNode()
     let boardTilesLayer = SKNode()
     
-//    var completeAction = false
-    
     var tileSprites = Array2D<SKShapeNode>(columns: NumColumns, rows: NumRows)
     
     required init?(coder aDecoder: NSCoder) {
@@ -97,9 +95,6 @@ class GameScene: SKScene {
             let sprite = tileSprites[displacement.fromCol, displacement.fromRow]
             
             let moveAction = SKAction.moveByX(coordToCGPoint(displacement.toCol, displacement.toRow).x - coordToCGPoint(displacement.fromCol, displacement.fromRow).x, y: coordToCGPoint(displacement.toCol, displacement.toRow).y - coordToCGPoint(displacement.fromCol, displacement.fromRow).y, duration: 0.15)
-//            let moveAction = SKAction.moveTo(coordToCGPoint(displacement.toCol, displacement.toRow), duration: 0.5)
-            
-//            sprite!.runAction(moveAction)
 
             sprite!.runAction(SKAction.sequence([
                 
@@ -107,23 +102,6 @@ class GameScene: SKScene {
                     sprite!.runAction(moveAction, completion:{
                         flag = true
                         completionHandler(success: flag)
-//                        if displacement.newTile == true{
-//                            let tilesFromModel = self.level.insertOneTile()
-//                            print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
-//                            print(tilesFromModel)
-//                            print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
-//                            self.addTiles(tilesFromModel)
-////                            if self.level.calculateWin() == true {
-////                                self.winLabel = SKLabelNode(fontNamed: "Gill Sans")
-////                                self.winLabel.text = "Congratulations! You Won!"
-////                                self.winLabel.fontColor = SKColor.blackColor()
-////                                self.winLabel.fontSize = 22
-////                                self.winLabel.position = CGPoint(x: 150, y: 320)
-////                                self.winLabel.zPosition = 3
-////                                self.winLabel.color = SKColor.yellowColor()
-////                                self.boardTilesLayer.addChild(self.winLabel)
-////                            }
-//                        }
                     })
                 })
             ]))
