@@ -8,24 +8,66 @@
 
 import SpriteKit
 import UIKit
+import DeviceKit
 
 class GameScene: SKScene {
     
     var level: Level!
     var set = Set<Tile>()
     
-    var winLabel: SKLabelNode!
+    var TileWidthOuter: CGFloat = 70.0
+    var TileHeightOuter: CGFloat = 70.0
+    var TileWidthInner: CGFloat = 68.0
+    var TileHeightInner: CGFloat = 68.0
     
-    var win: Bool = false {
-        didSet {
-            winLabel.text = "\(win)"
+    func tileSize(phoneSize: Device) {
+        switch phoneSize {
+        case .Simulator(.iPhone6sPlus):
+            print("phone is iPhone6sPlus")
+            TileWidthOuter = 80.0
+            TileHeightOuter = 80.0
+            TileWidthInner = 78.0
+            TileHeightInner = 78.0
+        case .Simulator(.iPhone6Plus):
+            print("phone is iPhone6Plus")
+            TileWidthOuter = 80.0
+            TileHeightOuter = 80.0
+            TileWidthInner = 78.0
+            TileHeightInner = 78.0
+        case .Simulator(.iPhone6s):
+            print("phone is iPhone6s")
+            TileWidthOuter = 70.0
+            TileHeightOuter = 70.0
+            TileWidthInner = 68.0
+            TileHeightInner = 68.0
+        case .Simulator(.iPhone6):
+            print("phone is iPhone6")
+            TileWidthOuter = 30.0
+            TileHeightOuter = 30.0
+            TileWidthInner = 28.0
+            TileHeightInner = 28.0
+        case .Simulator(.iPhone5s):
+            print("phone is iPhone5s")
+            TileWidthOuter = 60.0
+            TileHeightOuter = 60.0
+            TileWidthInner = 58.0
+            TileHeightInner = 58.0
+        case .Simulator(.iPhone5):
+            print("phone is iPhone5")
+            TileWidthOuter = 60.0
+            TileHeightOuter = 60.0
+            TileWidthInner = 58.0
+            TileHeightInner = 58.0
+        case .Simulator(.iPhone4s):
+            print("phone is iPhone4s")
+            TileWidthOuter = 60.0
+            TileHeightOuter = 60.0
+            TileWidthInner = 58.0
+            TileHeightInner = 58.0
+        default:
+            break
         }
     }
-    
-    let TileWidthOuter: CGFloat = 70.0
-    let TileHeightOuter: CGFloat = 70.0
-    let TileWidthInner: CGFloat = 68.0
-    let TileHeightInner: CGFloat = 68.0
     
     let gameLayer = SKNode()
     let boardLayer = SKNode()
@@ -40,6 +82,9 @@ class GameScene: SKScene {
     override init(size: CGSize) {
         super.init(size: size)
         
+        let device = Device()
+        tileSize(device)
+        
         anchorPoint = CGPoint(x: 0.5, y: 0.5)
         
         let background = SKSpriteNode(imageNamed: "Background")
@@ -50,7 +95,7 @@ class GameScene: SKScene {
         
         let layerPosition = CGPoint(
             x: -TileWidthOuter * CGFloat(NumColumns) / 2,
-            y: -TileHeightOuter * CGFloat(NumRows) / 2)
+            y: -TileHeightOuter * CGFloat(NumRows) / 2 - TileHeightOuter)
         
         boardLayer.position = layerPosition
         boardTilesLayer.position = layerPosition
