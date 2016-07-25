@@ -15,61 +15,65 @@ class GameScene: SKScene {
     var level: Level!
     var set = Set<Tile>()
     
+    var OuterBoard: CGFloat = 300.0
     var TileWidthOuter: CGFloat = 70.0
     var TileHeightOuter: CGFloat = 70.0
-    var TileWidthInner: CGFloat = 68.0
-    var TileHeightInner: CGFloat = 68.0
+    var TileWidthInner: CGFloat = 65.0
+    var TileHeightInner: CGFloat = 65.0
+    
+    var layerPosition = CGPoint(
+        x: -140,
+        y: -140)
     
     func tileSize(phoneSize: Device) {
         switch phoneSize {
-        case .Simulator(.iPhone6sPlus):
+        case .Simulator(.iPhone6sPlus), .Simulator(.iPhone6Plus), .iPhone6sPlus, .iPhone6Plus :
             print("phone is iPhone6sPlus")
+            OuterBoard = 330.0
             TileWidthOuter = 80.0
             TileHeightOuter = 80.0
-            TileWidthInner = 78.0
-            TileHeightInner = 78.0
-        case .Simulator(.iPhone6Plus):
-            print("phone is iPhone6Plus")
-            TileWidthOuter = 80.0
-            TileHeightOuter = 80.0
-            TileWidthInner = 78.0
-            TileHeightInner = 78.0
-        case .Simulator(.iPhone6s):
+            TileWidthInner = 75.0
+            TileHeightInner = 75.0
+            layerPosition = CGPoint(
+                x: -TileWidthOuter * CGFloat(NumColumns) / 2,
+                y: -TileHeightOuter * CGFloat(NumRows) / 2)
+        case .Simulator(.iPhone6s), .Simulator(.iPhone6), .iPhone6s, .iPhone6:
             print("phone is iPhone6s")
+            OuterBoard = 290.0
             TileWidthOuter = 70.0
             TileHeightOuter = 70.0
-            TileWidthInner = 68.0
-            TileHeightInner = 68.0
-        case .Simulator(.iPhone6):
-            print("phone is iPhone6")
-            TileWidthOuter = 30.0
-            TileHeightOuter = 30.0
-            TileWidthInner = 28.0
-            TileHeightInner = 28.0
-        case .Simulator(.iPhone5s):
+            TileWidthInner = 65.0
+            TileHeightInner = 65.0
+            layerPosition = CGPoint(
+                x: -TileWidthOuter * CGFloat(NumColumns) / 2,
+                y: -TileHeightOuter * CGFloat(NumRows) / 2)
+        case .Simulator(.iPhone5s), .Simulator(.iPhone5), .iPhone5s, .iPhone5:
             print("phone is iPhone5s")
+            OuterBoard = 250.0
             TileWidthOuter = 60.0
             TileHeightOuter = 60.0
-            TileWidthInner = 58.0
-            TileHeightInner = 58.0
-        case .Simulator(.iPhone5):
-            print("phone is iPhone5")
-            TileWidthOuter = 60.0
-            TileHeightOuter = 60.0
-            TileWidthInner = 58.0
-            TileHeightInner = 58.0
-        case .Simulator(.iPhone4s):
+            TileWidthInner = 55.0
+            TileHeightInner = 55.0
+            layerPosition = CGPoint(
+                x: -TileWidthOuter * CGFloat(NumColumns) / 2,
+                y: -TileHeightOuter * CGFloat(NumRows) / 2 - TileHeightOuter / 3)
+        case .Simulator(.iPhone4s), .iPhone4s:
             print("phone is iPhone4s")
+            OuterBoard = 250.0
             TileWidthOuter = 60.0
             TileHeightOuter = 60.0
-            TileWidthInner = 58.0
-            TileHeightInner = 58.0
+            TileWidthInner = 55.0
+            TileHeightInner = 55.0
+            layerPosition = CGPoint(
+                x: -TileWidthOuter * CGFloat(NumColumns) / 2,
+                y: -TileHeightOuter * CGFloat(NumRows) / 2 - TileHeightOuter / 1.5)
         default:
             break
         }
     }
     
     let gameLayer = SKNode()
+    let outerBoardLayer = SKNode()
     let boardLayer = SKNode()
     let boardTilesLayer = SKNode()
     
@@ -93,22 +97,25 @@ class GameScene: SKScene {
         
         addChild(gameLayer)
         
-        let layerPosition = CGPoint(
-            x: -TileWidthOuter * CGFloat(NumColumns) / 2,
-            y: -TileHeightOuter * CGFloat(NumRows) / 2 - TileHeightOuter)
-        
+        outerBoardLayer.position = layerPosition
         boardLayer.position = layerPosition
         boardTilesLayer.position = layerPosition
+        gameLayer.addChild(outerBoardLayer)
         gameLayer.addChild(boardLayer)
         gameLayer.addChild(boardTilesLayer)
     }
     
     func setupBoard(){
+        let outerBoardFrame = SKShapeNode()
+        outerBoardFrame.path = CGPathCreateWithRoundedRect(CGRect(origin: CGPoint(x: -7.5, y: -7.5), size: CGSize(width: OuterBoard, height: OuterBoard)),4,4,nil)
+        outerBoardFrame.fillColor = SKColor(red: 214.0/255.0 , green:  214.0/255.0 , blue :  214.0/255.0 , alpha: 1.0)
+        outerBoardLayer.addChild(outerBoardFrame)
+        
         for row in 0..<NumRows {
             for column in 0..<NumColumns {
                 let boardTile = SKShapeNode()
                 boardTile.path = CGPathCreateWithRoundedRect(CGRect(origin: coordToCGPoint(column, row), size: CGSize(width: TileWidthInner, height: TileHeightInner)),4,4,nil)
-                boardTile.fillColor = SKColor.lightGrayColor()
+                boardTile.fillColor = SKColor(red: 194.0/255.0 , green:  194.0/255.0 , blue :  194.0/255.0 , alpha: 1.0)
                 boardLayer.addChild(boardTile)
             }
         }
