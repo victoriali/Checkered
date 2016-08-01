@@ -43,7 +43,7 @@ class GameViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        youWon.hidden = true
+        youWon.hidden = false
         // Configure the view.
         let skView = view as! SKView
         skView.multipleTouchEnabled = false
