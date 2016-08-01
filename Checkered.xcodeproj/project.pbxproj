@@ -8,10 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0A775F46CE8926DF0A5B5D6B /* Pods_Checkered.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AFB98B2E1284C323360E2B6 /* Pods_Checkered.framework */; };
-		5FA6699C1D2A5B6400C69DA5 /* MainLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA6699B1D2A5B6400C69DA5 /* MainLogo.swift */; };
-		5FA6699E1D2A5DD900C69DA5 /* StepSquare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA6699D1D2A5DD900C69DA5 /* StepSquare.swift */; };
+		5F3DEFD51D49CA0000F9E88E /* Instruction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3DEFD41D49CA0000F9E88E /* Instruction.swift */; };
 		5FA669A01D2A622200C69DA5 /* Restart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA6699F1D2A622200C69DA5 /* Restart.swift */; };
-		5FA669A21D2B58EE00C69DA5 /* BestScoreSquare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA669A11D2B58EE00C69DA5 /* BestScoreSquare.swift */; };
 		5FC7E0111D0C74D10024BB68 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC7E0101D0C74D10024BB68 /* AppDelegate.swift */; };
 		5FC7E0151D0C74D10024BB68 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC7E0141D0C74D10024BB68 /* GameScene.swift */; };
 		5FC7E0171D0C74D10024BB68 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC7E0161D0C74D10024BB68 /* GameViewController.swift */; };
@@ -27,10 +25,8 @@
 /* Begin PBXFileReference section */
 		3AFB98B2E1284C323360E2B6 /* Pods_Checkered.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Checkered.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5108FD5777D94A1DED066079 /* Pods-Checkered.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Checkered.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Checkered/Pods-Checkered.debug.xcconfig"; sourceTree = "<group>"; };
-		5FA6699B1D2A5B6400C69DA5 /* MainLogo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainLogo.swift; sourceTree = "<group>"; };
-		5FA6699D1D2A5DD900C69DA5 /* StepSquare.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepSquare.swift; sourceTree = "<group>"; };
+		5F3DEFD41D49CA0000F9E88E /* Instruction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Instruction.swift; sourceTree = "<group>"; };
 		5FA6699F1D2A622200C69DA5 /* Restart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Restart.swift; sourceTree = "<group>"; };
-		5FA669A11D2B58EE00C69DA5 /* BestScoreSquare.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BestScoreSquare.swift; sourceTree = "<group>"; };
 		5FC7E00D1D0C74D10024BB68 /* Checkered.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Checkered.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5FC7E0101D0C74D10024BB68 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5FC7E0141D0C74D10024BB68 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
@@ -121,11 +117,9 @@
 			children = (
 				5FC7E0101D0C74D10024BB68 /* AppDelegate.swift */,
 				5FC7E0181D0C74D10024BB68 /* Main.storyboard */,
-				5FA6699B1D2A5B6400C69DA5 /* MainLogo.swift */,
-				5FA6699D1D2A5DD900C69DA5 /* StepSquare.swift */,
-				5FA669A11D2B58EE00C69DA5 /* BestScoreSquare.swift */,
 				5FEFF16B1D2BC0AE00FF5584 /* YouWon.swift */,
 				5FA6699F1D2A622200C69DA5 /* Restart.swift */,
+				5F3DEFD41D49CA0000F9E88E /* Instruction.swift */,
 			);
 			name = Others;
 			sourceTree = "<group>";
@@ -270,14 +264,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5FA6699E1D2A5DD900C69DA5 /* StepSquare.swift in Sources */,
-				5FA669A21D2B58EE00C69DA5 /* BestScoreSquare.swift in Sources */,
+				5F3DEFD51D49CA0000F9E88E /* Instruction.swift in Sources */,
 				5FA669A01D2A622200C69DA5 /* Restart.swift in Sources */,
 				5FC7E0151D0C74D10024BB68 /* GameScene.swift in Sources */,
 				5FEFF16C1D2BC0AE00FF5584 /* YouWon.swift in Sources */,
 				5FC7E0311D0D30C30024BB68 /* Level.swift in Sources */,
 				5FC7E0271D0CF80F0024BB68 /* Array2D.swift in Sources */,
-				5FA6699C1D2A5B6400C69DA5 /* MainLogo.swift in Sources */,
 				5FC7E02D1D0D09770024BB68 /* Tile.swift in Sources */,
 				5FC7E0171D0C74D10024BB68 /* GameViewController.swift in Sources */,
 				5FC7E0111D0C74D10024BB68 /* AppDelegate.swift in Sources */,
