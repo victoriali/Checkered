@@ -3,7 +3,9 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Game View Controller-->
@@ -18,20 +20,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0qA-3r-cdg" userLabel="ButtonView">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="135"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0qA-3r-cdg" userLabel="ButtonView">
+                                <rect key="frame" x="16" y="0.0" width="288" height="113.5"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="ZuM-2X-NI9" userLabel="Big Stack View">
-                                        <rect key="frame" x="0.0" y="0.0" width="308" height="85"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" distribution="fillProportionally" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="ZuM-2X-NI9" userLabel="Big Stack View">
+                                        <rect key="frame" x="8" y="23" width="272" height="81"/>
                                         <subviews>
-                                            <view contentMode="scaleAspectFit" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dzq-eN-lkP" userLabel="CheckeredView">
-                                                <rect key="frame" x="0.0" y="0.0" width="150" height="85"/>
+                                            <view contentMode="scaleAspectFit" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dzq-eN-lkP" userLabel="LogoView">
+                                                <rect key="frame" x="0.0" y="0.0" width="50" height="81"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Checkered" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9dY-dw-V4n">
-                                                        <rect key="frame" x="10" y="8" width="131" height="69"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Checkered" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="9dY-dw-V4n">
+                                                        <rect key="frame" x="8" y="8" width="124" height="52.5"/>
                                                         <fontDescription key="fontDescription" name="GillSans-Bold" family="Gill Sans" pointSize="23"/>
                                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
+                                                        <variation key="widthClass=compact">
+                                                            <fontDescription key="fontDescription" name="GillSans-Bold" family="Gill Sans" pointSize="19"/>
+                                                        </variation>
                                                     </label>
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.88627450980392153" green="0.40784313725490196" blue="0.35686274509803922" alpha="1" colorSpace="calibratedRGB"/>
@@ -47,26 +52,24 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
-                                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" axis="vertical" distribution="fillProportionally" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="o8K-0m-ozw" userLabel="MiddleView">
-                                                <rect key="frame" x="155" y="0.0" width="74" height="85"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" distribution="fillProportionally" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="o8K-0m-ozw" userLabel="MiddleView">
+                                                <rect key="frame" x="55" y="0.0" width="105" height="81"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Ku-cg-KhK" userLabel="StepView">
-                                                        <rect key="frame" x="0.0" y="0.0" width="74" height="54"/>
+                                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Ku-cg-KhK" userLabel="StepView">
+                                                        <rect key="frame" x="0.0" y="0.0" width="105" height="50"/>
                                                         <subviews>
-                                                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="Y6j-Zx-KAY" userLabel="Step Stack View">
-                                                                <rect key="frame" x="6" y="0.0" width="58" height="38"/>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="Y6j-Zx-KAY" userLabel="Step Stack View">
+                                                                <rect key="frame" x="8" y="8" width="89" height="38"/>
                                                                 <subviews>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="STEP" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y0u-Cg-6ck" userLabel="Step:">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="58" height="19"/>
-                                                                        <color key="backgroundColor" red="1" green="0.52301876586089358" blue="0.064548775617130461" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="STEP" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y0u-Cg-6ck" userLabel="Step:">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="89" height="19"/>
                                                                         <fontDescription key="fontDescription" name="GillSans-Bold" family="Gill Sans" pointSize="16"/>
                                                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                                         <nil key="highlightedColor"/>
                                                                         <size key="shadowOffset" width="0.0" height="1"/>
                                                                     </label>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" ambiguous="YES" misplaced="YES" text="999999" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TOp-Zf-zev" userLabel="Step Label">
-                                                                        <rect key="frame" x="0.0" y="19" width="58" height="19"/>
-                                                                        <color key="backgroundColor" red="1" green="0.97952587934728985" blue="0.011490938827583563" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" misplaced="YES" text="999999" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TOp-Zf-zev" userLabel="Step Label">
+                                                                        <rect key="frame" x="0.0" y="19" width="89" height="19"/>
                                                                         <fontDescription key="fontDescription" name="GillSans-Bold" family="Gill Sans" pointSize="16"/>
                                                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                                         <nil key="highlightedColor"/>
@@ -88,8 +91,8 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
-                                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qzz-Nr-OZG" customClass="Instruction" customModule="Checkered" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="59" width="74" height="26"/>
+                                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qzz-Nr-OZG" customClass="Instruction" customModule="Checkered" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="55" width="105" height="26"/>
                                                         <fontDescription key="fontDescription" name="GillSans-Bold" family="Gill Sans" pointSize="12"/>
                                                         <state key="normal" title="Instruction">
                                                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -106,26 +109,24 @@
                                                 </subviews>
                                                 <color key="backgroundColor" red="1" green="0.90074765847842442" blue="0.27917149407798625" alpha="1" colorSpace="calibratedRGB"/>
                                             </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" axis="vertical" distribution="fillProportionally" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="EsX-ad-tzG" userLabel="ThirdView">
-                                                <rect key="frame" x="234" y="0.0" width="74" height="85"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" distribution="fillProportionally" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="EsX-ad-tzG" userLabel="ThirdView">
+                                                <rect key="frame" x="165" y="0.0" width="108" height="81"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cav-Qt-chm" userLabel="BestScoreView">
-                                                        <rect key="frame" x="0.0" y="0.0" width="74" height="54"/>
+                                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cav-Qt-chm" userLabel="BestScoreView">
+                                                        <rect key="frame" x="0.0" y="0.0" width="108" height="50"/>
                                                         <subviews>
-                                                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="iuq-iC-Ggg" userLabel="BS Stack View">
-                                                                <rect key="frame" x="6" y="0.0" width="58" height="38"/>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="iuq-iC-Ggg" userLabel="BS Stack View">
+                                                                <rect key="frame" x="8" y="8" width="92" height="38"/>
                                                                 <subviews>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="LEAST" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1U4-mM-Lzi" userLabel="Least">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="58" height="19"/>
-                                                                        <color key="backgroundColor" red="1" green="0.52301876586089358" blue="0.064548775617130461" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="LEAST" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1U4-mM-Lzi" userLabel="Least">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="92" height="19"/>
                                                                         <fontDescription key="fontDescription" name="GillSans-Bold" family="Gill Sans" pointSize="16"/>
                                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                         <nil key="highlightedColor"/>
                                                                         <size key="shadowOffset" width="0.0" height="1"/>
                                                                     </label>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" ambiguous="YES" misplaced="YES" text="999999" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bBF-dV-Icu" userLabel="MinStep Label">
-                                                                        <rect key="frame" x="0.0" y="19" width="58" height="19"/>
-                                                                        <color key="backgroundColor" red="1" green="0.97952587934728985" blue="0.011490938827583563" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" misplaced="YES" text="999999" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bBF-dV-Icu" userLabel="MinStep Label">
+                                                                        <rect key="frame" x="0.0" y="19" width="92" height="19"/>
                                                                         <fontDescription key="fontDescription" name="GillSans-Bold" family="Gill Sans" pointSize="16"/>
                                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                         <nil key="highlightedColor"/>
@@ -147,8 +148,8 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
-                                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BOK-Pe-4MD" userLabel="Restart" customClass="Restart" customModule="Checkered" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="59" width="74" height="26"/>
+                                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BOK-Pe-4MD" userLabel="Restart" customClass="Restart" customModule="Checkered" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="55" width="108" height="26"/>
                                                         <fontDescription key="fontDescription" name="GillSans-Bold" family="Gill Sans" pointSize="12"/>
                                                         <state key="normal" title="Restart">
                                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -172,27 +173,46 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.95294117647058818" green="0.93725490196078431" blue="0.88627450980392153" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailingMargin" secondItem="ZuM-2X-NI9" secondAttribute="trailing" constant="4" id="CFK-Dd-b9A"/>
-                                    <constraint firstItem="ZuM-2X-NI9" firstAttribute="leading" secondItem="0qA-3r-cdg" secondAttribute="leadingMargin" constant="4" id="enI-dr-NFF"/>
-                                    <constraint firstItem="ZuM-2X-NI9" firstAttribute="top" secondItem="0qA-3r-cdg" secondAttribute="topMargin" id="gWP-Jz-50a"/>
+                                    <constraint firstItem="ZuM-2X-NI9" firstAttribute="height" relation="greaterThanOrEqual" secondItem="0qA-3r-cdg" secondAttribute="height" multiplier="0.6" id="3N4-F6-Axa"/>
+                                    <constraint firstItem="ZuM-2X-NI9" firstAttribute="centerY" secondItem="0qA-3r-cdg" secondAttribute="centerY" id="RlL-aO-8jX"/>
+                                    <constraint firstItem="ZuM-2X-NI9" firstAttribute="leading" secondItem="0qA-3r-cdg" secondAttribute="leadingMargin" id="SrL-7i-30r"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="ZuM-2X-NI9" secondAttribute="trailing" id="z5k-5s-ScF"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Congratulations! You Won!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HmG-5X-SgO" customClass="YouWon" customModule="Checkered" customModuleProvider="target">
-                                <rect key="frame" x="38" y="143" width="244" height="23"/>
-                                <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="17"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="YOU WON!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HmG-5X-SgO" customClass="YouWon" customModule="Checkered" customModuleProvider="target">
+                                <rect key="frame" x="38" y="120" width="238" height="33"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="HmG-5X-SgO" secondAttribute="height" multiplier="238:33" id="HAg-qf-rVh"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="GillSans-Bold" family="Gill Sans" pointSize="14"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="color">
-                                        <color key="value" red="0.80000001190000003" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="value" red="0.84705882349999995" green="0.84705882349999995" blue="0.84705882349999995" alpha="1" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                         <real key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="0qA-3r-cdg" secondAttribute="trailing" id="AWu-UF-M39"/>
+                            <constraint firstItem="0qA-3r-cdg" firstAttribute="height" secondItem="3se-qz-xqx" secondAttribute="height" multiplier="0.2" id="C6y-hu-ojV"/>
+                            <constraint firstItem="HmG-5X-SgO" firstAttribute="centerX" secondItem="3se-qz-xqx" secondAttribute="centerX" id="JIv-a1-NTe"/>
+                            <constraint firstItem="0qA-3r-cdg" firstAttribute="top" secondItem="3se-qz-xqx" secondAttribute="topMargin" id="LZZ-JB-uyH"/>
+                            <constraint firstItem="0qA-3r-cdg" firstAttribute="leading" secondItem="3se-qz-xqx" secondAttribute="leadingMargin" id="N6F-Os-ADO"/>
+                            <constraint firstItem="HmG-5X-SgO" firstAttribute="width" secondItem="ZuM-2X-NI9" secondAttribute="width" id="nFJ-XB-ZJE"/>
+                            <constraint firstItem="HmG-5X-SgO" firstAttribute="top" secondItem="ZuM-2X-NI9" secondAttribute="bottom" constant="10" id="x8y-wp-JCX"/>
+                        </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
@@ -203,7 +223,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="272" y="238"/>
+            <point key="canvasLocation" x="309" y="220"/>
         </scene>
     </scenes>
 </document>
